@@ -225,7 +225,7 @@ export default function FavoritesPage() {
                   {filteredFavorites.length === 0 
                     ? 'No favorites found'
                     : `${filteredFavorites.length} favorite${filteredFavorites.length === 1 ? '' : 's'} found`
-                  } for "{searchQuery}"
+                  } for &quot;{searchQuery}&quot;
                 </p>
               </div>
             )}

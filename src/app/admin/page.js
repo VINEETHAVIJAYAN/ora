@@ -171,7 +171,7 @@ export default function AdminDashboard() {
             Admin Dashboard
           </h1>
           <p className="text-gray-600">
-            Welcome back, {user?.name}! Here's what's happening with your jewelry store.
+            Welcome back, {user?.name}! Here&apos;s what&apos;s happening with your jewelry store.
           </p>
         </div>
 

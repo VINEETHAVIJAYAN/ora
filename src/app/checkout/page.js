@@ -679,7 +679,7 @@ export default function CheckoutPage() {
                 </div>
                 <h2 className="text-2xl font-semibold text-gray-900 mb-2">Order Placed Successfully!</h2>
                 <p className="text-gray-600 mb-6">
-                  Thank you for your order. We'll send you a confirmation email shortly.
+                  Thank you for your order. We&apos;ll send you a confirmation email shortly.
                 </p>
                 <div className="flex space-x-4 justify-center">
                   <Link

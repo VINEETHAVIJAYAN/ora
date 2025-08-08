@@ -164,7 +164,7 @@ export default function OrdersPage() {
               No orders yet
             </h2>
             <p className="text-gray-600 mb-8 max-w-md mx-auto">
-              You haven't placed any orders yet. Start shopping to see your order history here.
+              You haven&apos;t placed any orders yet. Start shopping to see your order history here.
             </p>
             <Link
               href="/products"

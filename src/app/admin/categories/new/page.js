@@ -302,7 +302,7 @@ export default function AddCategory() {
                     <span className="ml-2 text-sm text-gray-700">Active Category</span>
                   </label>
                   <p className="text-sm text-gray-500">
-                    Inactive categories won't be visible to customers
+                    Inactive categories won&apos;t be visible to customers
                   </p>
                 </div>
               </div>

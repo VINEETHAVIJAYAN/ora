@@ -1,4 +1,8 @@
-# ORA Fashions - E-commerce Platform
+# # ORA Fashions - Traditional Jewelry E-commerce
+
+A modern, responsive e-commerce platform for ORA Fashions, specializing in traditional jewelry including chains, earrings, bangles, necklaces, rings, and bracelets.
+
+**Live Site**: https://orafashionz.comRA Fashions - E-commerce Platform
 
 A modern, responsive e-commerce platform built for ORA Fashions, specializing in traditional and contemporary jewelry including chains, earrings, bangles, necklaces, rings, and bracelets.
 
