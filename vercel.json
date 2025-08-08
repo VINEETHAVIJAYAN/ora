@@ -12,6 +12,5 @@
     "DATABASE_URL": "@database_url",
     "NEXTAUTH_SECRET": "@nextauth_secret",
     "NEXTAUTH_URL": "https://orafashionz.com"
-  },
-  "domains": ["orafashionz.com", "www.orafashionz.com"]
+  }
 }
