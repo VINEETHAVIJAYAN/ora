@@ -10,6 +10,9 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
+  env: {
+    SITE_URL: process.env.NODE_ENV === 'production' ? 'https://orafashionz.com' : 'http://localhost:3000',
+  },
 }
 
 module.exports = nextConfig
