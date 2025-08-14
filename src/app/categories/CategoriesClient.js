@@ -178,7 +178,7 @@ export default function CategoriesClient({ initialCategories }) {
       {/* CTA Section */}
       <div className="text-center mt-16 bg-white rounded-2xl p-8 shadow-md">
         <h2 className="text-2xl font-serif font-bold text-gray-900 mb-4">
-          Can't Find What You're Looking For?
+          Can&apos;t Find What You&apos;re Looking For?
         </h2>
         <p className="text-gray-600 mb-6">
           Browse all our products or get in touch with our experts for personalized recommendations.
