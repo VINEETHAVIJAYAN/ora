@@ -62,17 +62,27 @@ export default function AddCategory() {
     }
   }
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0]
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
     if (file) {
-      // In a real implementation, you would upload this to a storage service
-      // For now, we'll just create an object URL for preview
-      const imageUrl = URL.createObjectURL(file)
-      setImagePreview(imageUrl)
-      setFormData(prev => ({
-        ...prev,
-        image: imageUrl // In reality, this would be the uploaded image URL
-      }))
+      const data = new FormData();
+      data.append('file', file);
+      data.append('upload_preset', 'ora-ecommerce'); // You can change this to your actual preset
+
+      const res = await fetch('https://api.cloudinary.com/v1_1/djpertvld/image/upload', {
+        method: 'POST',
+        body: data,
+      });
+      const result = await res.json();
+      if (result.secure_url) {
+        setImagePreview(result.secure_url);
+        setFormData(prev => ({
+          ...prev,
+          image: result.secure_url
+        }));
+      } else {
+        toast.error('Image upload failed');
+      }
     }
   }
 

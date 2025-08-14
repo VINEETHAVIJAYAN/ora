@@ -1,173 +1,130 @@
-import Link from 'next/link'
+'use client'
+
 import Image from 'next/image'
+import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 
-const FeaturedCategories = () => {
-  const categories = [
+const FeaturedCategories = ({ categories = [] }) => {
+  // Fallback static categories for development/error cases
+  const fallbackCategories = [
     {
       id: 1,
-      name: 'Traditional Chains',
+      name: 'Chains',
       slug: 'chains',
+      description: 'Elegant gold and silver chains for every occasion',
       image: '/category-chains.jpg',
-      description: 'Elegant gold and silver chains',
-      productCount: 45,
-      featured: true
+      _count: { products: 1 }
     },
     {
       id: 2,
-      name: 'Exquisite Earrings',
+      name: 'Earrings',
       slug: 'earrings',
+      description: 'Beautiful earrings from traditional to contemporary',
       image: '/category-earrings.jpg',
-      description: 'Stunning traditional and modern earrings',
-      productCount: 78,
-      featured: true
+      _count: { products: 1 }
     },
     {
       id: 3,
-      name: 'Beautiful Bangles',
+      name: 'Bangles',
       slug: 'bangles',
+      description: 'Traditional and modern bangles in various styles',
       image: '/category-bangles.jpg',
-      description: 'Handcrafted bangles in various designs',
-      productCount: 32,
-      featured: true
+      _count: { products: 1 }
     },
     {
       id: 4,
-      name: 'Elegant Rings',
+      name: 'Rings',
       slug: 'rings',
+      description: 'Stunning rings for engagements, weddings, and fashion',
       image: '/category-rings.jpg',
-      description: 'Timeless rings for every occasion',
-      productCount: 56,
-      featured: false
+      _count: { products: 1 }
     },
     {
       id: 5,
-      name: 'Majestic Necklaces',
+      name: 'Necklaces',
       slug: 'necklaces',
+      description: 'Exquisite necklaces from chokers to long sets',
       image: '/category-necklaces.jpg',
-      description: 'Statement necklaces and sets',
-      productCount: 29,
-      featured: false
+      _count: { products: 1 }
     },
     {
       id: 6,
-      name: 'Charming Bracelets',
+      name: 'Bracelets',
       slug: 'bracelets',
+      description: 'Delicate and bold bracelets for every style',
       image: '/category-bracelets.jpg',
-      description: 'Delicate and bold bracelet designs',
-      productCount: 41,
-      featured: false
+      _count: { products: 1 }
     }
   ]
 
-  const featuredCategories = categories.filter(cat => cat.featured)
-  const otherCategories = categories.filter(cat => !cat.featured)
+  const displayCategories = categories?.length > 0 ? categories : fallbackCategories
 
   return (
-    <section className="py-16 bg-gray-50">
-      <div className="container mx-auto px-4">
-        {/* Section Header */}
+    <section className="py-16 px-4">
+      <div className="container mx-auto">
+        {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-4">
-            Explore Our Collections
+          <h2 className="text-4xl font-serif font-bold text-gray-800 mb-4">
+            Shop by Category
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Discover our carefully curated categories of traditional and contemporary jewelry, 
-            each piece crafted with love and attention to detail.
+          <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            Discover our exquisite collection of handcrafted jewelry, each piece telling its own story of elegance and tradition
           </p>
+          <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-primary-600 mx-auto mt-6 rounded-full"></div>
         </div>
 
-        {/* Featured Categories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-          {featuredCategories.map((category, index) => (
+        {/* Categories Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {displayCategories.slice(0, 6).map((category) => (
             <Link
-              key={category.id}
               href={`/categories/${category.slug}`}
-              className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+              key={category.id}
+              className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
             >
-              <div className="aspect-[4/3] relative">
+              <div className="relative h-80 bg-gray-100">
                 <Image
                   src={category.image}
                   alt={category.name}
                   fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  priority={category.id <= 3}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                 
-                {/* Content Overlay */}
+                {/* Content */}
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-xl font-semibold mb-2 group-hover:text-primary-400 transition-colors">
-                    {category.name}
-                  </h3>
-                  <p className="text-sm text-gray-200 mb-3 opacity-90">
-                    {category.description}
-                  </p>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs bg-white/20 backdrop-blur-sm rounded-full px-3 py-1">
-                      {category.productCount} Products
-                    </span>
-                    <div className="flex items-center text-sm group-hover:text-primary-400 transition-colors">
-                      <span className="mr-2">Shop Now</span>
-                      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    <div>
+                      <h3 className="text-2xl font-serif font-bold mb-2 group-hover:text-primary-300 transition-colors">
+                        {category.name}
+                      </h3>
+                      <p className="text-gray-200 text-sm mb-3 line-clamp-2">
+                        {category.description}
+                      </p>
+                      <span className="text-primary-300 text-sm font-medium">
+                        {category._count?.products || 0} Products
+                      </span>
                     </div>
+                    <ArrowRight className="w-6 h-6 text-primary-300 transform transition-transform group-hover:translate-x-1" />
                   </div>
                 </div>
 
-                {/* Hover Effect */}
-                <div className="absolute inset-0 bg-primary-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Hover Overlay */}
+                <div className="absolute inset-0 bg-primary-600/0 group-hover:bg-primary-600/10 transition-all duration-300" />
               </div>
             </Link>
           ))}
         </div>
 
-        {/* Other Categories */}
-        <div className="text-center mb-8">
-          <h3 className="text-2xl font-serif font-semibold text-gray-900 mb-4">
-            More Categories
-          </h3>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-          {otherCategories.map((category) => (
-            <Link
-              key={category.id}
-              href={`/categories/${category.slug}`}
-              className="group relative overflow-hidden rounded-xl shadow-md hover:shadow-lg transition-all duration-300"
-            >
-              <div className="aspect-square relative">
-                <Image
-                  src={category.image}
-                  alt={category.name}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                
-                <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
-                  <h4 className="font-medium mb-1 group-hover:text-primary-400 transition-colors">
-                    {category.name}
-                  </h4>
-                  <p className="text-xs text-gray-300 mb-2">
-                    {category.productCount} items
-                  </p>
-                  <div className="flex items-center text-xs opacity-0 group-hover:opacity-100 transition-opacity">
-                    <span className="mr-1">View All</span>
-                    <ArrowRight size={12} />
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        {/* CTA Section */}
+        {/* View All Button */}
         <div className="text-center mt-12">
           <Link
             href="/categories"
-            className="inline-flex items-center px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors group"
+            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold rounded-full hover:from-primary-700 hover:to-primary-800 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg group"
           >
             View All Categories
-            <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
       </div>

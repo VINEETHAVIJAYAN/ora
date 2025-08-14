@@ -37,7 +37,7 @@ const Header = () => {
       {/* Top Bar */}
       <div className="bg-primary-600 text-white text-sm py-2">
         <div className="container mx-auto px-4 text-center">
-          <p>Free shipping on orders over ₹5000 | Call us: +91 98765 43210</p>
+          <p>Free shipping on orders over ₹5000 | Call us: +91 80897 15616</p>
         </div>
       </div>
 
@@ -56,7 +56,7 @@ const Header = () => {
           <Link href="/" className="flex items-center space-x-3">
             <div className="relative w-12 h-12">
               <Image
-                src="/logo.png"
+                src="/logo.jpeg"
                 alt="ORA Fashions"
                 fill
                 className="object-contain"
@@ -73,10 +73,13 @@ const Header = () => {
 
           {/* Navigation - Desktop */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 hover:text-primary-600 transition-colors">
+            <Link
+              href="/"
+              className="text-gray-700 hover:text-primary-600 transition-colors"
+            >
               Home
             </Link>
-            
+
             {/* Categories Dropdown */}
             <div className="relative group">
               <button className="flex items-center space-x-1 text-gray-700 hover:text-primary-600 transition-colors">
@@ -96,10 +99,16 @@ const Header = () => {
               </div>
             </div>
 
-            <Link href="/about" className="text-gray-700 hover:text-primary-600 transition-colors">
+            <Link
+              href="/about"
+              className="text-gray-700 hover:text-primary-600 transition-colors"
+            >
               About
             </Link>
-            <Link href="/contact" className="text-gray-700 hover:text-primary-600 transition-colors">
+            <Link
+              href="/contact"
+              className="text-gray-700 hover:text-primary-600 transition-colors"
+            >
               Contact
             </Link>
           </nav>
@@ -134,7 +143,7 @@ const Header = () => {
                     >
                       My Orders
                     </Link>
-                    {user?.role === 'ADMIN' && (
+                    {user?.role === "ADMIN" && (
                       <Link
                         href="/admin"
                         className="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
@@ -225,7 +234,7 @@ const Header = () => {
               >
                 Home
               </Link>
-              
+
               <div className="space-y-2">
                 <p className="font-medium text-gray-900">Categories</p>
                 {categories.map((category) => (
@@ -259,7 +268,7 @@ const Header = () => {
         </div>
       )}
     </header>
-  )
+  );
 }
 
 export default Header

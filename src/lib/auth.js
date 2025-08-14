@@ -34,6 +34,8 @@ export async function verifyAuth(request) {
   }
 }
 
+export const verifyToken = verifyAuth;
+
 export function requireAuth(handler, requireAdmin = false) {
   return async (request, context) => {
     const auth = await verifyAuth(request)

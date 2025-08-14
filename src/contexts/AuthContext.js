@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
       if (response.ok) {
         const data = await response.json()
         setUser(data.user)
-        return { success: true }
+        return { success: true, user: data.user }
       } else {
         const error = await response.json()
         return { success: false, error: error.message }

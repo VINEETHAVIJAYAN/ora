@@ -1,22 +1,25 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ChevronLeft, ChevronRight, ShoppingBag, Star } from 'lucide-react'
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [slides, setSlides] = useState([])
+  const [loading, setLoading] = useState(true)
 
-  const slides = [
+  // Default slides as fallback
+  const defaultSlides = [
     {
       id: 1,
       title: "Exquisite Traditional Jewelry",
       subtitle: "Discover the Art of Timeless Elegance",
       description: "Handcrafted jewelry that tells your story with every piece",
-      image: "/hero-1.jpg",
-      cta: "Shop Collection",
-      link: "/categories"
+      image: "/hero1.png",
+      ctaText: "Shop Collection",
+      ctaLink: "/products",
     },
     {
       id: 2,
@@ -24,8 +27,8 @@ const Hero = () => {
       subtitle: "Make Your Special Day Extraordinary",
       description: "Stunning bridal jewelry sets for your most precious moments",
       image: "/hero-2.jpg",
-      cta: "View Bridal Sets",
-      link: "/categories/bridal"
+      ctaText: "View Bridal Sets",
+      ctaLink: "/categories/bridal",
     },
     {
       id: 3,
@@ -33,10 +36,46 @@ const Hero = () => {
       subtitle: "Heritage Meets Modern Design",
       description: "Classic gold chains crafted with contemporary flair",
       image: "/hero-3.jpg",
-      cta: "Explore Chains",
-      link: "/categories/chains"
-    }
+      ctaText: "Explore Chains",
+      ctaLink: "/categories/chains",
+    },
   ]
+
+  useEffect(() => {
+    fetchHeroSlides()
+  }, [])
+
+  const fetchHeroSlides = async () => {
+    try {
+      const response = await fetch('/api/hero-slides')
+      if (response.ok) {
+        const data = await response.json()
+        if (data.heroSlides && data.heroSlides.length > 0) {
+          setSlides(data.heroSlides.map(slide => ({
+            id: slide.id,
+            title: slide.title,
+            subtitle: slide.subtitle,
+            description: slide.description,
+            image: slide.image,
+            ctaText: slide.ctaText,
+            ctaLink: slide.ctaLink
+          })))
+        } else {
+          // Use default slides if no slides in database
+          setSlides(defaultSlides)
+        }
+      } else {
+        // Use default slides if API fails
+        setSlides(defaultSlides)
+      }
+    } catch (error) {
+      console.error('Error fetching hero slides:', error)
+      // Use default slides if fetch fails
+      setSlides(defaultSlides)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length)
@@ -44,6 +83,18 @@ const Hero = () => {
 
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
+  }
+
+  if (loading) {
+    return (
+      <div className="relative h-[600px] md:h-[700px] overflow-hidden bg-gray-900 flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-primary-400 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    )
+  }
+
+  if (!slides || slides.length === 0) {
+    return null
   }
 
   return (
@@ -84,11 +135,11 @@ const Hero = () => {
                   
                   <div className="flex flex-col sm:flex-row gap-4">
                     <Link
-                      href={slide.link}
+                      href={slide.ctaLink}
                       className="inline-flex items-center justify-center px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors group"
                     >
                       <ShoppingBag size={20} className="mr-2" />
-                      {slide.cta}
+                      {slide.ctaText}
                     </Link>
                     
                     <Link

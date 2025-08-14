@@ -33,7 +33,13 @@ export default function LoginPage() {
       
       if (result.success) {
         toast.success('Login successful!')
-        router.push('/')
+        
+        // Redirect based on user role
+        if (result.user && result.user.role === 'ADMIN') {
+          router.push('/admin')
+        } else {
+          router.push('/')
+        }
       } else {
         toast.error(result.error || 'Login failed')
       }
@@ -42,16 +48,6 @@ export default function LoginPage() {
     } finally {
       setIsLoading(false)
     }
-  }
-
-  const demoCredentials = [
-    { label: 'Admin Login', email: 'admin@orafashions.com', password: 'admin123' },
-    { label: 'Customer Login', email: 'customer@example.com', password: 'customer123' }
-  ]
-
-  const fillDemo = (email, password) => {
-    setEmail(email)
-    setPassword(password)
   }
 
   return (
@@ -78,23 +74,6 @@ export default function LoginPage() {
             <p className="text-gray-600">
               Sign in to your account to continue shopping
             </p>
-          </div>
-
-          {/* Demo Credentials */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <p className="text-sm font-medium text-blue-900 mb-3">Demo Credentials:</p>
-            <div className="space-y-2">
-              {demoCredentials.map((cred, index) => (
-                <button
-                  key={index}
-                  onClick={() => fillDemo(cred.email, cred.password)}
-                  className="w-full text-left p-2 bg-white border border-blue-200 rounded text-sm hover:bg-blue-50 transition-colors"
-                >
-                  <div className="font-medium text-blue-900">{cred.label}</div>
-                  <div className="text-blue-700">{cred.email}</div>
-                </button>
-              ))}
-            </div>
           </div>
 
           {/* Login Form */}

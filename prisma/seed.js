@@ -9,16 +9,16 @@ async function main() {
   // Create admin user
   const adminPassword = await bcrypt.hash('admin123', 12)
   const admin = await prisma.user.upsert({
-    where: { email: 'admin@orafashions.com' },
+    where: { email: "admin@orafashions.com" },
     update: {},
     create: {
-      email: 'admin@orafashions.com',
+      email: "admin@orafashions.com",
       password: adminPassword,
-      name: 'Admin User',
-      phone: '+91 98765 43210',
-      role: 'ADMIN',
+      name: "Admin User",
+      phone: "+91 80897 15616",
+      role: "ADMIN",
     },
-  })
+  });
   console.log('👤 Created admin user:', admin.email)
 
   // Create sample customer

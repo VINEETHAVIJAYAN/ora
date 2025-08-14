@@ -15,7 +15,8 @@ import {
   Edit,
   Trash2,
   TrendingUp,
-  DollarSign
+  DollarSign,
+  Image as ImageIcon
 } from 'lucide-react'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
@@ -97,20 +98,20 @@ export default function AdminDashboard() {
       hoverColor: 'hover:bg-blue-600'
     },
     {
+      title: 'Hero Slides',
+      description: 'Manage homepage banners',
+      href: '/admin/hero-slides',
+      icon: <ImageIcon className="w-6 h-6" />,
+      bgColor: 'bg-indigo-500',
+      hoverColor: 'hover:bg-indigo-600'
+    },
+    {
       title: 'View Orders',
       description: 'Manage customer orders',
       href: '/admin/orders',
       icon: <ShoppingCart className="w-6 h-6" />,
       bgColor: 'bg-purple-500',
       hoverColor: 'hover:bg-purple-600'
-    },
-    {
-      title: 'Manage Users',
-      description: 'View and manage users',
-      href: '/admin/users',
-      icon: <Users className="w-6 h-6" />,
-      bgColor: 'bg-orange-500',
-      hoverColor: 'hover:bg-orange-600'
     }
   ]
 
@@ -221,7 +222,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Management Links */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           {/* Product Management */}
           <div className="bg-white rounded-lg shadow-md p-6">
             <div className="flex items-center justify-between mb-4">
@@ -292,6 +293,45 @@ export default function AdminDashboard() {
                 <span className="flex items-center">
                   <Plus className="w-4 h-4 mr-2 text-gray-500" />
                   Add New Category
+                </span>
+                <span className="text-primary-600">→</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Hero Management */}
+          <div className="bg-white rounded-lg shadow-md p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xl font-semibold text-gray-900 flex items-center">
+                <ImageIcon className="w-6 h-6 mr-2 text-primary-600" />
+                Hero Management
+              </h3>
+              <Link
+                href="/admin/hero-slides"
+                className="text-primary-600 hover:text-primary-700 font-medium"
+              >
+                View All
+              </Link>
+            </div>
+            <div className="space-y-3">
+              <Link
+                href="/admin/hero-slides"
+                className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition-colors"
+              >
+                <span className="flex items-center">
+                  <Eye className="w-4 h-4 mr-2 text-gray-500" />
+                  View Hero Slides
+                </span>
+                <span className="text-primary-600">→</span>
+              </Link>
+              <Link
+                href="/admin/hero-slides"
+                className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition-colors"
+                onClick={() => {/* This will open the modal in the hero slides page */}}
+              >
+                <span className="flex items-center">
+                  <Plus className="w-4 h-4 mr-2 text-gray-500" />
+                  Add New Slide
                 </span>
                 <span className="text-primary-600">→</span>
               </Link>

@@ -260,7 +260,7 @@ This project is proprietary software for ORA Fashions. All rights reserved.
 
 For support and questions:
 - Email: support@orafashions.com
-- Phone: +91 98765 43210
+- Phone: +91 80897 15616
 
 ---
 

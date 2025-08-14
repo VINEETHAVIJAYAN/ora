@@ -224,6 +224,22 @@ model NewsletterSubscription {
   @@map("newsletter_subscriptions")
 }
 
+model HeroSlide {
+  id          Int      @id @default(autoincrement())
+  title       String
+  subtitle    String?
+  description String?
+  image       String
+  ctaText     String
+  ctaLink     String
+  isActive    Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("hero_slides")
+}
+
 // Enums
 enum Role {
   USER
