@@ -23,8 +23,10 @@ import Footer from '@/components/layout/Footer'
 import { useCart } from '@/contexts/CartContext'
 import { useAuth } from '@/contexts/AuthContext'
 import toast from 'react-hot-toast'
+import UpiPay from '@/components/UpiPay'
 
 export default function CheckoutPage() {
+  const [upiTxnId, setUpiTxnId] = useState("")
   const { items, getCartTotal, getCartCount, clearCart } = useCart()
   const { user, isAuthenticated } = useAuth()
   const router = useRouter()
@@ -45,7 +47,7 @@ export default function CheckoutPage() {
     country: 'India'
   })
   
-  const [paymentMethod, setPaymentMethod] = useState('googlepay')
+  const [paymentMethod, setPaymentMethod] = useState('upi')
   const [isGooglePayReady, setIsGooglePayReady] = useState(false)
 
   // Redirect if not authenticated or no items
@@ -561,62 +563,31 @@ export default function CheckoutPage() {
                   <CreditCard className="w-6 h-6 mr-2 text-primary-600" />
                   Payment Method
                 </h2>
-                
                 <div className="space-y-4">
-                  {/* Google Pay */}
-                  <div 
-                    className={`p-4 border-2 rounded-lg cursor-pointer transition-colors ${
-                      paymentMethod === 'googlepay' 
-                        ? 'border-primary-600 bg-primary-50' 
-                        : 'border-gray-300 hover:border-gray-400'
-                    } ${!isGooglePayReady ? 'opacity-50' : ''}`}
-                    onClick={() => isGooglePayReady && setPaymentMethod('googlepay')}
+                  {/* UPI Payment */}
+                  <div className={`p-4 border-2 rounded-lg transition-colors ${paymentMethod === 'upi' ? 'border-primary-600 bg-primary-50' : 'border-gray-300 hover:border-gray-400'}`}
+                    onClick={() => setPaymentMethod('upi')}
                   >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        <input
-                          type="radio"
-                          name="payment"
-                          value="googlepay"
-                          checked={paymentMethod === 'googlepay'}
-                          onChange={() => setPaymentMethod('googlepay')}
-                          disabled={!isGooglePayReady}
-                          className="w-4 h-4 text-primary-600"
-                        />
-                        <div className="ml-3">
-                          <div className="flex items-center">
-                            <Smartphone className="w-5 h-5 text-gray-600 mr-2" />
-                            <span className="font-medium">Google Pay</span>
-                            {!isGooglePayReady && (
-                              <span className="ml-2 text-xs text-red-600">(Not Available)</span>
-                            )}
-                            {isGooglePayReady && !process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID && (
-                              <span className="ml-2 text-xs text-blue-600">(Demo Mode)</span>
-                            )}
-                          </div>
-                          <p className="text-sm text-gray-600">
-                            {!isGooglePayReady 
-                              ? 'Google Pay not supported on this device'
-                              : !process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID 
-                                ? 'Demo mode - no real payment required'
-                                : 'Pay securely with Google Pay'
-                            }
-                          </p>
+                    <div className="flex items-center">
+                      <input
+                        type="radio"
+                        name="payment"
+                        value="upi"
+                        checked={paymentMethod === 'upi'}
+                        onChange={() => setPaymentMethod('upi')}
+                        className="w-4 h-4 text-primary-600"
+                      />
+                      <div className="ml-3">
+                        <div className="flex items-center">
+                          <Smartphone className="w-5 h-5 text-gray-600 mr-2" />
+                          <span className="font-medium">UPI (Google Pay, PhonePe, Paytm, etc.)</span>
                         </div>
-                      </div>
-                      <div className="w-12 h-8 bg-gradient-to-r from-blue-600 to-green-600 rounded flex items-center justify-center">
-                        <span className="text-white text-xs font-bold">G</span>
+                        <p className="text-sm text-gray-600">Pay instantly using any UPI app. No extra charges.</p>
                       </div>
                     </div>
                   </div>
-
                   {/* Cash on Delivery */}
-                  <div 
-                    className={`p-4 border-2 rounded-lg cursor-pointer transition-colors ${
-                      paymentMethod === 'cod' 
-                        ? 'border-primary-600 bg-primary-50' 
-                        : 'border-gray-300 hover:border-gray-400'
-                    }`}
+                  <div className={`p-4 border-2 rounded-lg cursor-pointer transition-colors ${paymentMethod === 'cod' ? 'border-primary-600 bg-primary-50' : 'border-gray-300 hover:border-gray-400'}`}
                     onClick={() => setPaymentMethod('cod')}
                   >
                     <div className="flex items-center">
@@ -638,7 +609,22 @@ export default function CheckoutPage() {
                     </div>
                   </div>
                 </div>
-                
+                {/* UPI Payment UI */}
+                {paymentMethod === 'upi' && (
+                  <div className="mt-6">
+                    <UpiPay amount={finalTotal} />
+                    <div className="mt-4 text-sm text-gray-700">
+                      After payment, please enter your UPI transaction ID below for order confirmation.
+                    </div>
+                    <input
+                      type="text"
+                      value={upiTxnId}
+                      onChange={e => setUpiTxnId(e.target.value)}
+                      placeholder="Enter UPI Transaction ID"
+                      className="mt-2 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
+                    />
+                  </div>
+                )}
                 <div className="flex space-x-4 mt-6">
                   <button
                     onClick={() => setStep(1)}
@@ -647,18 +633,50 @@ export default function CheckoutPage() {
                     Back
                   </button>
                   <button
-                    onClick={() => {
-                      if (paymentMethod === 'googlepay') {
-                        if (isGooglePayReady) {
-                          handleGooglePay()
-                        } else {
-                          toast.error('Please select Cash on Delivery as Google Pay is not available')
+                    onClick={async () => {
+                      if (paymentMethod === 'upi') {
+                        if (!upiTxnId.trim()) {
+                          toast.error('Please enter your UPI transaction ID after payment.')
+                          return
+                        }
+                        setLoading(true)
+                        // Save order with UPI txn ID, mark as pending
+                        try {
+                          const response = await fetch('/api/orders', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            credentials: 'include',
+                            body: JSON.stringify({
+                              items: items.map(item => ({
+                                productId: item.productId,
+                                quantity: item.quantity,
+                                price: item.product.salePrice || item.product.price
+                              })),
+                              shippingAddress,
+                              paymentMethod: 'upi',
+                              paymentData: { upiTxnId },
+                              total: finalTotal
+                            })
+                          })
+                          const responseData = await response.json()
+                          if (response.ok) {
+                            await clearCart()
+                            setOrderComplete(true)
+                            setStep(3)
+                            toast.success('Order placed! We will verify your payment and confirm soon.')
+                          } else {
+                            toast.error(responseData.message || 'Order failed')
+                          }
+                        } catch (err) {
+                          toast.error('Failed to place order. Please try again.')
+                        } finally {
+                          setLoading(false)
                         }
                       } else {
                         handleCashOnDelivery()
                       }
                     }}
-                    disabled={loading || (paymentMethod === 'googlepay' && !isGooglePayReady)}
+                    disabled={loading}
                     className="flex-1 bg-primary-600 hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center"
                   >
                     {loading ? (

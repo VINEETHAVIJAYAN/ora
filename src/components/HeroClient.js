@@ -9,6 +9,15 @@ const Hero = ({ initialSlides = [] }) => {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [slides, setSlides] = useState(initialSlides)
 
+  // Auto-slide every 5 seconds
+  useEffect(() => {
+    if (slides.length === 0) return;
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [slides]);
+
   // Default slides as fallback
   const defaultSlides = [
     {

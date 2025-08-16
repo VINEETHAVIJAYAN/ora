@@ -34,25 +34,6 @@ async function updateProduct(request, { params }) {
   try {
     const id = parseInt(params.id)
     const data = await request.json()
-    
-    const {
-      name,
-      description,
-      price,
-      salePrice,
-      sku,
-      categoryId,
-      stockQuantity,
-      weight,
-      material,
-      dimensions,
-      images,
-      tags,
-      isActive,
-      isFeatured,
-      metaTitle,
-      metaDescription
-    } = data
 
     // Check if product exists
     const existingProduct = await prisma.product.findUnique({
@@ -66,12 +47,11 @@ async function updateProduct(request, { params }) {
       )
     }
 
-    // Check if SKU already exists for other products
-    if (sku !== existingProduct.sku) {
+    // If SKU is being updated, check for uniqueness
+    if (data.sku && data.sku !== existingProduct.sku) {
       const existingSku = await prisma.product.findUnique({
-        where: { sku }
+        where: { sku: data.sku }
       })
-
       if (existingSku && existingSku.id !== id) {
         return NextResponse.json(
           { message: 'SKU already exists' },
@@ -80,28 +60,18 @@ async function updateProduct(request, { params }) {
       }
     }
 
-    // Update the product
+    // Build updateData with only provided fields
+    const updateData = { ...data, updatedAt: new Date() }
+    // Parse numbers if present
+    if (updateData.price) updateData.price = parseFloat(updateData.price)
+    if (updateData.salePrice) updateData.salePrice = parseFloat(updateData.salePrice)
+    if (updateData.categoryId) updateData.categoryId = parseInt(updateData.categoryId)
+    if (updateData.stockQuantity !== undefined) updateData.stockQuantity = parseInt(updateData.stockQuantity)
+    if (updateData.weight) updateData.weight = parseFloat(updateData.weight)
+
     const product = await prisma.product.update({
       where: { id },
-      data: {
-        name,
-        description,
-        price: parseFloat(price),
-        salePrice: salePrice ? parseFloat(salePrice) : null,
-        sku,
-        categoryId: parseInt(categoryId),
-        stockQuantity: parseInt(stockQuantity) || 0,
-        weight: weight ? parseFloat(weight) : null,
-        material,
-        dimensions,
-        images: images || [],
-        tags: tags || [],
-        isActive,
-        isFeatured,
-        metaTitle,
-        metaDescription,
-        updatedAt: new Date()
-      },
+      data: updateData,
       include: {
         category: true
       }

@@ -117,6 +117,7 @@ export async function POST(request) {
         status: paymentMethod === 'cod' ? 'PENDING' : 'PENDING', // Both start as PENDING
         paymentMethod: paymentMethod.toUpperCase(),
         paymentStatus: paymentMethod === 'cod' ? 'PENDING' : 'COMPLETED',
+        paymentId: paymentData?.paymentId || paymentData?.upiTxnId || paymentData?.transactionId || null,
         shippingAddress: JSON.stringify(shippingAddress),
         items: {
           create: orderItems.map(item => ({

@@ -98,13 +98,12 @@ const ProductCard = ({ product }) => {
               >
                 <Heart size={16} fill={isFavorite(product.id) ? 'currentColor' : 'none'} />
               </button>
-              
-              <Link
-                href={`/products/${product.slug}`}
+              <button
+                onClick={() => window.location.href = `/products/${product.slug}`}
                 className="p-2 bg-white text-gray-600 hover:text-primary-600 rounded-full shadow-md transition-colors"
               >
                 <Eye size={16} />
-              </Link>
+              </button>
             </div>
           </div>
 

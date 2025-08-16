@@ -21,23 +21,19 @@ function FeaturedProducts({ products = [] }) {
         {products.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {products.slice(0, 8).map((product) => (
-              <div key={product.id} className="bg-white p-4 rounded-lg shadow hover:shadow-lg transition-shadow flex flex-col">
-                <Link href={`/products/${product.slug}`} className="block mb-4">
-                  <div className="relative w-full h-56 bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center">
-                    <img
-                      src={product.images?.[0] || '/placeholder-product.jpg'}
-                      alt={product.name}
-                      className="object-cover w-full h-full"
-                      loading="lazy"
-                    />
-                  </div>
-                </Link>
+              <Link href={`/products/${product.slug}`} key={product.id} className="bg-white p-4 rounded-lg shadow hover:shadow-lg transition-shadow flex flex-col group">
+                <div className="relative w-full h-56 bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center mb-4">
+                  <img
+                    src={product.images?.[0] || '/placeholder-product.jpg'}
+                    alt={product.name}
+                    className="object-cover w-full h-full"
+                    loading="lazy"
+                  />
+                </div>
                 <h3 className="font-semibold text-lg text-gray-800 mb-2 line-clamp-1">{product.name}</h3>
                 <p className="text-primary-600 font-bold text-xl mb-2">₹{product.price}</p>
-                <Link href={`/products/${product.slug}`} className="text-primary-600 font-medium hover:underline mt-auto">
-                  View Details
-                </Link>
-              </div>
+                <span className="text-primary-600 font-medium hover:underline mt-auto">View Details</span>
+              </Link>
             ))}
           </div>
         ) : (

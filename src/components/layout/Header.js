@@ -138,7 +138,7 @@ const Header = () => {
                       My Account
                     </Link>
                     <Link
-                      href="/orders"
+                      href="/account/orders"
                       className="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
                     >
                       My Orders
