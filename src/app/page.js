@@ -120,13 +120,15 @@ export default async function Home() {
   const { heroSlides, categories, featuredProducts } = await getHomePageData();
 
   return (
-    <main className="min-h-screen">
-      <Header />
-      <HeroClient initialSlides={heroSlides} />
-      <FeaturedCategories categories={categories} />
-      <FeaturedProducts products={featuredProducts} />
-      <Newsletter />
+    <div className="min-h-screen font-figtree">
+      <Header className="font-roboto" />
+      <main>
+        <HeroClient initialSlides={heroSlides} />
+        <FeaturedCategories categories={categories} />
+        <FeaturedProducts products={featuredProducts} />
+        <Newsletter />
+      </main>
       <Footer />
-    </main>
+    </div>
   );
 }

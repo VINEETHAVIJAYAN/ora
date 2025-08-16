@@ -34,6 +34,9 @@ module.exports = {
         },
       },
       fontFamily: {
+        bricolage: ["var(--font-heading)", "sans-serif"],
+        roboto: ["var(--font-nav)", "sans-serif"],
+        figtree: ["var(--font-body)", "sans-serif"],
         serif: ['Playfair Display', 'serif'],
         sans: ['Inter', 'sans-serif'],
       },
