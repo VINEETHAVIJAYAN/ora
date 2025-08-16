@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast'
 import { AuthProvider } from '@/contexts/AuthContext'
 import { CartProvider } from '@/contexts/CartContext'
 import { FavoritesProvider } from '@/contexts/FavoritesContext'
+import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -72,20 +73,21 @@ export default function RootLayout({ children }) {
           <CartProvider>
             <FavoritesProvider>
               {children}
-              <Toaster 
+              <Toaster
                 position="top-right"
                 toastOptions={{
                   duration: 3000,
                   style: {
-                    background: '#363636',
-                    color: '#fff',
+                    background: "#363636",
+                    color: "#fff",
                   },
                 }}
               />
+              <WhatsAppFloatingButton />
             </FavoritesProvider>
           </CartProvider>
         </AuthProvider>
       </body>
     </html>
-  )
+  );
 }

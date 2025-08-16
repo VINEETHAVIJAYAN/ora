@@ -87,7 +87,7 @@ const Hero = () => {
 
   if (loading) {
     return (
-      <div className="relative h-[600px] md:h-[700px] overflow-hidden bg-gray-900 flex items-center justify-center">
+      <div className="relative h-[400px] overflow-hidden bg-gray-900 flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-primary-400 border-t-transparent rounded-full animate-spin"></div>
       </div>
     )
@@ -98,7 +98,7 @@ const Hero = () => {
   }
 
   return (
-    <div className="relative h-[600px] md:h-[700px] overflow-hidden">
+    <div className="relative h-[400px] overflow-hidden">
       {slides.map((slide, index) => (
         <div
           key={slide.id}

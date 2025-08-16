@@ -67,9 +67,7 @@ const FeaturedCategories = ({ categories = [] }) => {
           <h2 className="text-4xl font-serif font-bold text-gray-800 mb-4">
             Shop by Category
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Discover our exquisite collection of handcrafted jewelry, each piece telling its own story of elegance and tradition
-          </p>
+
           <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-primary-600 mx-auto mt-6 rounded-full"></div>
         </div>
 
@@ -91,7 +89,7 @@ const FeaturedCategories = ({ categories = [] }) => {
                   priority={category.id <= 3}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                
+
                 {/* Content */}
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                   <div className="flex items-center justify-between">
@@ -129,7 +127,7 @@ const FeaturedCategories = ({ categories = [] }) => {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 export default FeaturedCategories

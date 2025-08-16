@@ -93,13 +93,16 @@ const Hero = ({ initialSlides = [] }) => {
   }
 
   return (
-    <div className="relative h-[600px] md:h-[700px] overflow-hidden">
+    <div className="relative h-[500px] overflow-hidden">
       {displaySlides.map((slide, index) => (
         <div
           key={slide.id}
           className={`absolute inset-0 transition-transform duration-700 ease-in-out ${
-            index === currentSlide ? 'translate-x-0' : 
-            index < currentSlide ? '-translate-x-full' : 'translate-x-full'
+            index === currentSlide
+              ? "translate-x-0"
+              : index < currentSlide
+              ? "-translate-x-full"
+              : "translate-x-full"
           }`}
         >
           {/* Background Image */}
@@ -127,7 +130,7 @@ const Hero = ({ initialSlides = [] }) => {
                   <p className="text-xl mb-8 text-gray-200 leading-relaxed">
                     {slide.description}
                   </p>
-                  
+
                   <div className="flex flex-col sm:flex-row gap-4">
                     <Link
                       href={slide.ctaLink}
@@ -136,7 +139,7 @@ const Hero = ({ initialSlides = [] }) => {
                       <ShoppingBag size={20} className="mr-2" />
                       {slide.ctaText}
                     </Link>
-                    
+
                     <Link
                       href="/about"
                       className="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-gray-900 font-semibold rounded-lg transition-colors"
@@ -144,16 +147,22 @@ const Hero = ({ initialSlides = [] }) => {
                       Learn More
                     </Link>
                   </div>
-                  
+
                   {/* Trust Indicators */}
                   <div className="flex items-center space-x-6 mt-8">
                     <div className="flex items-center space-x-2">
                       <div className="flex">
                         {[...Array(5)].map((_, i) => (
-                          <Star key={i} size={16} className="fill-yellow-400 text-yellow-400" />
+                          <Star
+                            key={i}
+                            size={16}
+                            className="fill-yellow-400 text-yellow-400"
+                          />
                         ))}
                       </div>
-                      <span className="text-sm text-gray-300">4.9/5 Rating</span>
+                      <span className="text-sm text-gray-300">
+                        4.9/5 Rating
+                      </span>
                     </div>
                     <div className="text-sm text-gray-300">
                       10,000+ Happy Customers
@@ -173,7 +182,7 @@ const Hero = ({ initialSlides = [] }) => {
       >
         <ChevronLeft size={24} />
       </button>
-      
+
       <button
         onClick={nextSlide}
         className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/30 hover:bg-black/50 text-white rounded-full flex items-center justify-center transition-colors z-20"
@@ -188,7 +197,7 @@ const Hero = ({ initialSlides = [] }) => {
             key={index}
             onClick={() => setCurrentSlide(index)}
             className={`w-3 h-3 rounded-full transition-colors ${
-              index === currentSlide ? 'bg-primary-400' : 'bg-white/50'
+              index === currentSlide ? "bg-primary-400" : "bg-white/50"
             }`}
           />
         ))}
@@ -203,7 +212,7 @@ const Hero = ({ initialSlides = [] }) => {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Hero
