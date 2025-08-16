@@ -37,7 +37,7 @@ const Header = () => {
       {/* Top Bar */}
       <div className="bg-primary-600 text-white text-sm py-2">
         <div className="container mx-auto px-4 text-center">
-          <p>Free shipping on orders over ₹5000 | Call us: +91 80897 15616</p>
+          <p>Free shipping on orders over ₹999 | Call us: +91 80897 15616</p>
         </div>
       </div>
 
@@ -53,7 +53,7 @@ const Header = () => {
           </button>
 
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
+          <Link href="/" className="flex items-center">
             <div className="relative w-12 h-12">
               <Image
                 src="/logo.jpeg"
@@ -62,12 +62,6 @@ const Header = () => {
                 className="object-contain"
                 priority
               />
-            </div>
-            <div>
-              <h1 className="text-2xl font-serif font-bold text-primary-600">
-                ORA
-              </h1>
-              <p className="text-xs text-gray-600 -mt-1">FASHIONZ</p>
             </div>
           </Link>
 

@@ -126,7 +126,7 @@ export default async function Home() {
         <HeroClient initialSlides={heroSlides} />
         <FeaturedCategories categories={categories} />
         <FeaturedProducts products={featuredProducts} />
-        <Newsletter />
+        {/* <Newsletter /> */}
       </main>
       <Footer />
     </div>

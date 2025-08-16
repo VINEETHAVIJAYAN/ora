@@ -5,59 +5,8 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 
 const FeaturedCategories = ({ categories = [] }) => {
-  // Fallback static categories for development/error cases
-  const fallbackCategories = [
-    {
-      id: 1,
-      name: 'Chains',
-      slug: 'chains',
-      description: 'Elegant gold and silver chains for every occasion',
-      image: '/category-chains.jpg',
-      _count: { products: 1 }
-    },
-    {
-      id: 2,
-      name: 'Earrings',
-      slug: 'earrings',
-      description: 'Beautiful earrings from traditional to contemporary',
-      image: '/category-earrings.jpg',
-      _count: { products: 1 }
-    },
-    {
-      id: 3,
-      name: 'Bangles',
-      slug: 'bangles',
-      description: 'Traditional and modern bangles in various styles',
-      image: '/category-bangles.jpg',
-      _count: { products: 1 }
-    },
-    {
-      id: 4,
-      name: 'Rings',
-      slug: 'rings',
-      description: 'Stunning rings for engagements, weddings, and fashion',
-      image: '/category-rings.jpg',
-      _count: { products: 1 }
-    },
-    {
-      id: 5,
-      name: 'Necklaces',
-      slug: 'necklaces',
-      description: 'Exquisite necklaces from chokers to long sets',
-      image: '/category-necklaces.jpg',
-      _count: { products: 1 }
-    },
-    {
-      id: 6,
-      name: 'Bracelets',
-      slug: 'bracelets',
-      description: 'Delicate and bold bracelets for every style',
-      image: '/category-bracelets.jpg',
-      _count: { products: 1 }
-    }
-  ]
-
-  const displayCategories = categories?.length > 0 ? categories : fallbackCategories
+  // Only show first 4 categories from DB
+  const displayCategories = categories?.slice(0, 4) || []
 
   return (
     <section className="py-8 px-4">
@@ -71,9 +20,9 @@ const FeaturedCategories = ({ categories = [] }) => {
           <div className="w-24 h-1 bg-gradient-to-r from-primary-500 to-primary-600 mx-auto mt-2 rounded-full"></div>
         </div>
 
-        {/* Categories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {displayCategories.slice(0, 6).map((category) => (
+        {/* Categories Grid - show only 4 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {displayCategories.map((category) => (
             <Link
               href={`/categories/${category.slug}`}
               key={category.id}
@@ -84,7 +33,7 @@ const FeaturedCategories = ({ categories = [] }) => {
                   src={category.image}
                   alt={category.name}
                   fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-110"
                   priority={category.id <= 3}
                 />
@@ -115,14 +64,13 @@ const FeaturedCategories = ({ categories = [] }) => {
           ))}
         </div>
 
-        {/* View All Button */}
-        <div className="text-center mt-12">
+        {/* Explore all link at right bottom */}
+        <div className="flex justify-end mt-8">
           <Link
             href="/categories"
-            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-600 to-primary-700 text-white font-semibold rounded-full hover:from-primary-700 hover:to-primary-800 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg group"
+            className="text-primary-600 font-medium hover:underline text-base"
           >
-            View All Categories
-            <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+            Explore all
           </Link>
         </div>
       </div>

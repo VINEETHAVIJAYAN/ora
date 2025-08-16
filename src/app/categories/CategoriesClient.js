@@ -86,7 +86,7 @@ export default function CategoriesClient({ initialCategories }) {
           </div>
 
           {viewMode === 'grid' ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {filteredCategories.map((category) => (
                 <Link
                   key={category.id}

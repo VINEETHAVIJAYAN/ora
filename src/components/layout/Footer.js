@@ -1,69 +1,45 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { 
-  Facebook, 
-  Instagram, 
-  Twitter, 
-  Mail, 
-  Phone, 
+"use client";
+
+import Link from "next/link";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import {
+  Facebook,
+  Instagram,
+  Twitter,
+  Mail,
+  Phone,
   MapPin,
   CreditCard,
   Truck,
   Shield,
-  RotateCcw
-} from 'lucide-react'
+  RotateCcw,
+} from "lucide-react";
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const res = await fetch("/api/categories");
+        const data = await res.json();
+        // Defensive: ensure categories is always an array
+        setCategories(Array.isArray(data) ? data : []);
+      } catch (error) {
+        setCategories([]);
+      }
+    }
+    fetchCategories();
+  }, []);
 
   return (
     <footer className="bg-gray-900 text-white">
       {/* Features Section */}
-      <div className="border-b border-gray-800">
-        <div className="container mx-auto px-4 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-primary-600 rounded-full mb-4">
-                <Truck size={24} />
-              </div>
-              <h3 className="font-semibold mb-2">Free Shipping</h3>
-              <p className="text-gray-400 text-sm">
-                Free delivery on orders above ₹5000
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-primary-600 rounded-full mb-4">
-                <Shield size={24} />
-              </div>
-              <h3 className="font-semibold mb-2">Secure Payment</h3>
-              <p className="text-gray-400 text-sm">
-                100% secure payment processing
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-primary-600 rounded-full mb-4">
-                <RotateCcw size={24} />
-              </div>
-              <h3 className="font-semibold mb-2">Easy Returns</h3>
-              <p className="text-gray-400 text-sm">
-                30-day hassle-free returns
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="inline-flex items-center justify-center w-12 h-12 bg-primary-600 rounded-full mb-4">
-                <CreditCard size={24} />
-              </div>
-              <h3 className="font-semibold mb-2">Multiple Payment</h3>
-              <p className="text-gray-400 text-sm">
-                Various payment methods accepted
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* <div className="border-b border-gray-800">
+        ...existing code...
+      </div> */}
 
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 py-16">
@@ -78,12 +54,6 @@ const Footer = () => {
                   fill
                   className="object-contain"
                 />
-              </div>
-              <div>
-                <h2 className="text-xl font-serif font-bold text-primary-400">
-                  ORA
-                </h2>
-                <p className="text-xs text-gray-400 -mt-1">FASHIONZ</p>
               </div>
             </div>
             <p className="text-gray-400 mb-6 leading-relaxed">
@@ -135,30 +105,6 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/shipping"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Shipping Info
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/returns"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Returns & Exchanges
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/size-guide"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Size Guide
-                </Link>
-              </li>
-              <li>
-                <Link
                   href="/care-instructions"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
@@ -172,54 +118,16 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold text-lg mb-6">Categories</h3>
             <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/categories/chains"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Chains
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/categories/earrings"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Earrings
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/categories/bangles"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Bangles
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/categories/rings"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Rings
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/categories/necklaces"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Necklaces
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/categories/bracelets"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  Bracelets
-                </Link>
-              </li>
+              {categories?.map((category) => (
+                <li key={category.slug}>
+                  <Link
+                    href={`/categories/${category.slug}`}
+                    className="text-gray-400 hover:text-white transition-colors"
+                  >
+                    {category.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -233,9 +141,9 @@ const Footer = () => {
                   className="text-primary-400 mt-1 flex-shrink-0"
                 />
                 <div className="text-gray-400">
-                  <p>123 Jewelry Street,</p>
-                  <p>Fashion District,</p>
-                  <p>Mumbai, Maharashtra 400001</p>
+                  <p>4A Asset GrandDios,</p>
+                  <p>Kadappakkad</p>
+                  <p>Kollam, kerala 691008</p>
                 </div>
               </li>
               <li className="flex items-center space-x-3">
@@ -248,8 +156,7 @@ const Footer = () => {
               <li className="flex items-center space-x-3">
                 <Mail size={20} className="text-primary-400 flex-shrink-0" />
                 <div className="text-gray-400">
-                  <p>info@orafashions.com</p>
-                  <p>support@orafashions.com</p>
+                  <p>orafashionzz@gmail.com</p>
                 </div>
               </li>
             </ul>
@@ -311,6 +218,6 @@ const Footer = () => {
       </div>
     </footer>
   );
-}
+};
 
-export default Footer
+export default Footer;
