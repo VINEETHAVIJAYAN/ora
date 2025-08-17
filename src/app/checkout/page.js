@@ -118,11 +118,10 @@ export default function CheckoutPage() {
 
   const cartTotal = getCartTotal()
   const cartCount = getCartCount()
-  const shippingCost = cartTotal > 5000 ? 0 : 200
-  const tax = Math.round(cartTotal * 0.18) // 18% GST
-  const finalTotal = cartTotal + shippingCost + tax
+  const shippingCost = cartTotal > 499 ? 0 : 200
+  const finalTotal = cartTotal + shippingCost
   
-  console.log('Checkout totals - Cart:', cartTotal, 'Shipping:', shippingCost, 'Tax:', tax, 'Final:', finalTotal)
+  console.log('Checkout totals - Cart:', cartTotal, 'Shipping:', shippingCost, 'Final:', finalTotal)
 
   const handleAddressSubmit = (e) => {
     e.preventDefault()
@@ -626,7 +625,7 @@ export default function CheckoutPage() {
                   Payment Method
                 </h2>
                 <div className="space-y-4">
-                  {/* UPI Payment */}
+                  {/* UPI Payment ONLY */}
                   <div
                     className={`p-4 border-2 rounded-lg transition-colors ${
                       paymentMethod === "upi"
@@ -653,35 +652,6 @@ export default function CheckoutPage() {
                         </div>
                         <p className="text-sm text-gray-600">
                           Pay instantly using any UPI app. No extra charges.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Cash on Delivery */}
-                  <div
-                    className={`p-4 border-2 rounded-lg cursor-pointer transition-colors ${
-                      paymentMethod === "cod"
-                        ? "border-primary-600 bg-primary-50"
-                        : "border-gray-300 hover:border-gray-400"
-                    }`}
-                    onClick={() => setPaymentMethod("cod")}
-                  >
-                    <div className="flex items-center">
-                      <input
-                        type="radio"
-                        name="payment"
-                        value="cod"
-                        checked={paymentMethod === "cod"}
-                        onChange={() => setPaymentMethod("cod")}
-                        className="w-4 h-4 text-primary-600"
-                      />
-                      <div className="ml-3">
-                        <div className="flex items-center">
-                          <Truck className="w-5 h-5 text-gray-600 mr-2" />
-                          <span className="font-medium">Cash on Delivery</span>
-                        </div>
-                        <p className="text-sm text-gray-600">
-                          Pay when your order is delivered
                         </p>
                       </div>
                     </div>
@@ -868,10 +838,6 @@ export default function CheckoutPage() {
                     )}
                   </span>
                 </div>
-                <div className="flex justify-between text-gray-600">
-                  <span>Tax (GST 18%)</span>
-                  <span>₹{tax.toLocaleString()}</span>
-                </div>
                 <div className="flex justify-between text-lg font-bold text-gray-900 pt-2 border-t border-gray-200">
                   <span>Total</span>
                   <span>₹{finalTotal.toLocaleString()}</span>
@@ -880,10 +846,6 @@ export default function CheckoutPage() {
 
               {/* Security Features */}
               <div className="space-y-2 text-sm text-gray-600">
-                <div className="flex items-center">
-                  <Shield className="w-4 h-4 text-green-600 mr-2" />
-                  <span>256-bit SSL encrypted checkout</span>
-                </div>
                 <div className="flex items-center">
                   <Truck className="w-4 h-4 text-blue-600 mr-2" />
                   <span>Free shipping on orders over ₹499</span>
