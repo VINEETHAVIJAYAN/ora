@@ -61,6 +61,10 @@ const Footer = () => {
               love and precision. Each piece tells a story of heritage and
               elegance.
             </p>
+            <div className="flex items-center text-xs text-gray-400 mb-4">
+              <Truck className="w-4 h-4 mr-1 text-primary-400" />
+              Free shipping on orders over ₹499
+            </div>
             <div className="flex space-x-4">
               <a
                 href="#"

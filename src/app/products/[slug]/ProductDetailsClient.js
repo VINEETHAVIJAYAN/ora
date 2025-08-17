@@ -48,11 +48,18 @@ export default function ProductDetailsClient({ product }) {
     <div className="container mx-auto px-4 py-8">
       {/* Breadcrumb */}
       <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-8">
-        <Link href="/" className="hover:text-primary-600">Home</Link>
+        <Link href="/" className="hover:text-primary-600">
+          Home
+        </Link>
         <span>/</span>
-        <Link href="/products" className="hover:text-primary-600">Products</Link>
+        <Link href="/products" className="hover:text-primary-600">
+          Products
+        </Link>
         <span>/</span>
-        <Link href={`/categories/${product.category?.slug}`} className="hover:text-primary-600">
+        <Link
+          href={`/categories/${product.category?.slug}`}
+          className="hover:text-primary-600"
+        >
           {product.category?.name}
         </Link>
         <span>/</span>
@@ -74,7 +81,9 @@ export default function ProductDetailsClient({ product }) {
           <div className="space-y-4">
             <div className="aspect-square relative bg-gray-100 rounded-lg overflow-hidden">
               <Image
-                src={product.images?.[selectedImage] || '/placeholder-product.jpg'}
+                src={
+                  product.images?.[selectedImage] || "/placeholder-product.jpg"
+                }
                 alt={product.name}
                 fill
                 className="object-cover"
@@ -86,7 +95,7 @@ export default function ProductDetailsClient({ product }) {
                 </div>
               )}
             </div>
-            
+
             {/* Thumbnail Images */}
             {product.images && product.images.length > 1 && (
               <div className="flex space-x-2 overflow-x-auto">
@@ -95,9 +104,9 @@ export default function ProductDetailsClient({ product }) {
                     key={index}
                     onClick={() => setSelectedImage(index)}
                     className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-colors ${
-                      selectedImage === index 
-                        ? 'border-primary-500' 
-                        : 'border-gray-200 hover:border-gray-300'
+                      selectedImage === index
+                        ? "border-primary-500"
+                        : "border-gray-200 hover:border-gray-300"
                     }`}
                   >
                     <Image
@@ -116,11 +125,13 @@ export default function ProductDetailsClient({ product }) {
           {/* Product Details */}
           <div className="space-y-6">
             <div>
-              <p className="text-primary-600 font-medium mb-2">{product.category?.name}</p>
+              <p className="text-primary-600 font-medium mb-2">
+                {product.category?.name}
+              </p>
               <h1 className="text-3xl font-serif font-bold text-gray-900 mb-4">
                 {product.name}
               </h1>
-              
+
               {/* Price */}
               <div className="flex items-center space-x-3 mb-4">
                 {product.salePrice ? (
@@ -132,7 +143,8 @@ export default function ProductDetailsClient({ product }) {
                       ₹{product.price.toLocaleString()}
                     </span>
                     <span className="bg-green-100 text-green-800 px-2 py-1 rounded text-sm font-medium">
-                      Save ₹{(product.price - product.salePrice).toLocaleString()}
+                      Save ₹
+                      {(product.price - product.salePrice).toLocaleString()}
                     </span>
                   </>
                 ) : (
@@ -163,8 +175,12 @@ export default function ProductDetailsClient({ product }) {
             {/* Description */}
             {product.description && (
               <div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">Description</h3>
-                <p className="text-gray-700 leading-relaxed">{product.description}</p>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  Description
+                </h3>
+                <p className="text-gray-700 leading-relaxed">
+                  {product.description}
+                </p>
               </div>
             )}
 
@@ -208,7 +224,9 @@ export default function ProductDetailsClient({ product }) {
                   </button>
                   <span className="px-4 py-2 font-medium">{quantity}</span>
                   <button
-                    onClick={() => setQuantity(Math.min(product.stockQuantity, quantity + 1))}
+                    onClick={() =>
+                      setQuantity(Math.min(product.stockQuantity, quantity + 1))
+                    }
                     className="p-2 hover:bg-gray-50 transition-colors"
                     disabled={quantity >= product.stockQuantity}
                   >
@@ -226,18 +244,21 @@ export default function ProductDetailsClient({ product }) {
                 className="flex-1 flex items-center justify-center px-8 py-3 bg-primary-600 hover:bg-primary-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-semibold rounded-lg transition-colors"
               >
                 <ShoppingCart size={20} className="mr-2" />
-                {product.stockQuantity === 0 ? 'Out of Stock' : 'Add to Cart'}
+                {product.stockQuantity === 0 ? "Out of Stock" : "Add to Cart"}
               </button>
-              
+
               <button
                 onClick={handleFavoriteToggle}
                 className={`px-6 py-3 border-2 rounded-lg font-semibold transition-colors ${
                   isFavorite(product.id)
-                    ? 'border-red-500 text-red-500 bg-red-50'
-                    : 'border-gray-300 text-gray-700 hover:border-primary-500 hover:text-primary-500'
+                    ? "border-red-500 text-red-500 bg-red-50"
+                    : "border-gray-300 text-gray-700 hover:border-primary-500 hover:text-primary-500"
                 }`}
               >
-                <Heart size={20} className={isFavorite(product.id) ? 'fill-current' : ''} />
+                <Heart
+                  size={20}
+                  className={isFavorite(product.id) ? "fill-current" : ""}
+                />
               </button>
             </div>
 
@@ -251,14 +272,14 @@ export default function ProductDetailsClient({ product }) {
                 <Shield size={20} className="text-primary-600" />
                 <span>Secure Payment</span>
               </div>
-              <div className="flex items-center space-x-3 text-sm text-gray-600">
+              {/* <div className="flex items-center space-x-3 text-sm text-gray-600">
                 <RotateCcw size={20} className="text-primary-600" />
                 <span>Easy Returns</span>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

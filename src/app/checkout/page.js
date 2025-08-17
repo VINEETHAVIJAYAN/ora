@@ -360,7 +360,7 @@ export default function CheckoutPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
+
       <div className="container mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="flex items-center justify-between mb-8">
@@ -374,10 +374,12 @@ export default function CheckoutPage() {
             </Link>
             <div>
               <h1 className="text-3xl font-serif font-bold text-gray-900">
-                {orderComplete ? 'Order Confirmed' : 'Checkout'}
+                {orderComplete ? "Order Confirmed" : "Checkout"}
               </h1>
               <p className="text-gray-600">
-                {orderComplete ? 'Thank you for your order!' : `Complete your purchase of ${cartCount} items`}
+                {orderComplete
+                  ? "Thank you for your order!"
+                  : `Complete your purchase of ${cartCount} items`}
               </p>
             </div>
           </div>
@@ -387,15 +389,35 @@ export default function CheckoutPage() {
         {!orderComplete && (
           <div className="flex items-center justify-center mb-8">
             <div className="flex items-center space-x-4">
-              <div className={`flex items-center justify-center w-8 h-8 rounded-full ${step >= 1 ? 'bg-primary-600 text-white' : 'bg-gray-300'}`}>
+              <div
+                className={`flex items-center justify-center w-8 h-8 rounded-full ${
+                  step >= 1 ? "bg-primary-600 text-white" : "bg-gray-300"
+                }`}
+              >
                 <span className="text-sm font-semibold">1</span>
               </div>
-              <div className={`h-1 w-16 ${step >= 2 ? 'bg-primary-600' : 'bg-gray-300'}`}></div>
-              <div className={`flex items-center justify-center w-8 h-8 rounded-full ${step >= 2 ? 'bg-primary-600 text-white' : 'bg-gray-300'}`}>
+              <div
+                className={`h-1 w-16 ${
+                  step >= 2 ? "bg-primary-600" : "bg-gray-300"
+                }`}
+              ></div>
+              <div
+                className={`flex items-center justify-center w-8 h-8 rounded-full ${
+                  step >= 2 ? "bg-primary-600 text-white" : "bg-gray-300"
+                }`}
+              >
                 <span className="text-sm font-semibold">2</span>
               </div>
-              <div className={`h-1 w-16 ${step >= 3 ? 'bg-primary-600' : 'bg-gray-300'}`}></div>
-              <div className={`flex items-center justify-center w-8 h-8 rounded-full ${step >= 3 ? 'bg-primary-600 text-white' : 'bg-gray-300'}`}>
+              <div
+                className={`h-1 w-16 ${
+                  step >= 3 ? "bg-primary-600" : "bg-gray-300"
+                }`}
+              ></div>
+              <div
+                className={`flex items-center justify-center w-8 h-8 rounded-full ${
+                  step >= 3 ? "bg-primary-600 text-white" : "bg-gray-300"
+                }`}
+              >
                 <span className="text-sm font-semibold">3</span>
               </div>
             </div>
@@ -412,7 +434,7 @@ export default function CheckoutPage() {
                   <MapPin className="w-6 h-6 mr-2 text-primary-600" />
                   Shipping Address
                 </h2>
-                
+
                 <form onSubmit={handleAddressSubmit} className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -424,14 +446,19 @@ export default function CheckoutPage() {
                         <input
                           type="text"
                           value={shippingAddress.fullName}
-                          onChange={(e) => setShippingAddress({...shippingAddress, fullName: e.target.value})}
+                          onChange={(e) =>
+                            setShippingAddress({
+                              ...shippingAddress,
+                              fullName: e.target.value,
+                            })
+                          }
                           className="pl-10 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                           placeholder="Enter your full name"
                           required
                         />
                       </div>
                     </div>
-                    
+
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Email Address *
@@ -441,7 +468,12 @@ export default function CheckoutPage() {
                         <input
                           type="email"
                           value={shippingAddress.email}
-                          onChange={(e) => setShippingAddress({...shippingAddress, email: e.target.value})}
+                          onChange={(e) =>
+                            setShippingAddress({
+                              ...shippingAddress,
+                              email: e.target.value,
+                            })
+                          }
                           className="pl-10 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                           placeholder="Enter your email"
                           required
@@ -449,7 +481,7 @@ export default function CheckoutPage() {
                       </div>
                     </div>
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Phone Number *
@@ -459,7 +491,12 @@ export default function CheckoutPage() {
                       <input
                         type="tel"
                         value={shippingAddress.phone}
-                        onChange={(e) => setShippingAddress({...shippingAddress, phone: e.target.value})}
+                        onChange={(e) =>
+                          setShippingAddress({
+                            ...shippingAddress,
+                            phone: e.target.value,
+                          })
+                        }
                         className="pl-10 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                         placeholder="Enter 10-digit mobile number"
                         maxLength="10"
@@ -467,7 +504,7 @@ export default function CheckoutPage() {
                       />
                     </div>
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Address Line 1 *
@@ -477,14 +514,19 @@ export default function CheckoutPage() {
                       <input
                         type="text"
                         value={shippingAddress.addressLine1}
-                        onChange={(e) => setShippingAddress({...shippingAddress, addressLine1: e.target.value})}
+                        onChange={(e) =>
+                          setShippingAddress({
+                            ...shippingAddress,
+                            addressLine1: e.target.value,
+                          })
+                        }
                         className="pl-10 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                         placeholder="House/Flat number, Street name"
                         required
                       />
                     </div>
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Address Line 2 (Optional)
@@ -494,13 +536,18 @@ export default function CheckoutPage() {
                       <input
                         type="text"
                         value={shippingAddress.addressLine2}
-                        onChange={(e) => setShippingAddress({...shippingAddress, addressLine2: e.target.value})}
+                        onChange={(e) =>
+                          setShippingAddress({
+                            ...shippingAddress,
+                            addressLine2: e.target.value,
+                          })
+                        }
                         className="pl-10 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                         placeholder="Landmark, Area"
                       />
                     </div>
                   </div>
-                  
+
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -509,13 +556,18 @@ export default function CheckoutPage() {
                       <input
                         type="text"
                         value={shippingAddress.city}
-                        onChange={(e) => setShippingAddress({...shippingAddress, city: e.target.value})}
+                        onChange={(e) =>
+                          setShippingAddress({
+                            ...shippingAddress,
+                            city: e.target.value,
+                          })
+                        }
                         className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                         placeholder="City"
                         required
                       />
                     </div>
-                    
+
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         State *
@@ -523,13 +575,18 @@ export default function CheckoutPage() {
                       <input
                         type="text"
                         value={shippingAddress.state}
-                        onChange={(e) => setShippingAddress({...shippingAddress, state: e.target.value})}
+                        onChange={(e) =>
+                          setShippingAddress({
+                            ...shippingAddress,
+                            state: e.target.value,
+                          })
+                        }
                         className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                         placeholder="State"
                         required
                       />
                     </div>
-                    
+
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">
                         Pincode *
@@ -537,7 +594,12 @@ export default function CheckoutPage() {
                       <input
                         type="text"
                         value={shippingAddress.pincode}
-                        onChange={(e) => setShippingAddress({...shippingAddress, pincode: e.target.value})}
+                        onChange={(e) =>
+                          setShippingAddress({
+                            ...shippingAddress,
+                            pincode: e.target.value,
+                          })
+                        }
                         className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                         placeholder="000000"
                         maxLength="6"
@@ -545,7 +607,7 @@ export default function CheckoutPage() {
                       />
                     </div>
                   </div>
-                  
+
                   <button
                     type="submit"
                     className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
@@ -565,38 +627,52 @@ export default function CheckoutPage() {
                 </h2>
                 <div className="space-y-4">
                   {/* UPI Payment */}
-                  <div className={`p-4 border-2 rounded-lg transition-colors ${paymentMethod === 'upi' ? 'border-primary-600 bg-primary-50' : 'border-gray-300 hover:border-gray-400'}`}
-                    onClick={() => setPaymentMethod('upi')}
+                  <div
+                    className={`p-4 border-2 rounded-lg transition-colors ${
+                      paymentMethod === "upi"
+                        ? "border-primary-600 bg-primary-50"
+                        : "border-gray-300 hover:border-gray-400"
+                    }`}
+                    onClick={() => setPaymentMethod("upi")}
                   >
                     <div className="flex items-center">
                       <input
                         type="radio"
                         name="payment"
                         value="upi"
-                        checked={paymentMethod === 'upi'}
-                        onChange={() => setPaymentMethod('upi')}
+                        checked={paymentMethod === "upi"}
+                        onChange={() => setPaymentMethod("upi")}
                         className="w-4 h-4 text-primary-600"
                       />
                       <div className="ml-3">
                         <div className="flex items-center">
                           <Smartphone className="w-5 h-5 text-gray-600 mr-2" />
-                          <span className="font-medium">UPI (Google Pay, PhonePe, Paytm, etc.)</span>
+                          <span className="font-medium">
+                            UPI (Google Pay, PhonePe, Paytm, etc.)
+                          </span>
                         </div>
-                        <p className="text-sm text-gray-600">Pay instantly using any UPI app. No extra charges.</p>
+                        <p className="text-sm text-gray-600">
+                          Pay instantly using any UPI app. No extra charges.
+                        </p>
                       </div>
                     </div>
                   </div>
                   {/* Cash on Delivery */}
-                  <div className={`p-4 border-2 rounded-lg cursor-pointer transition-colors ${paymentMethod === 'cod' ? 'border-primary-600 bg-primary-50' : 'border-gray-300 hover:border-gray-400'}`}
-                    onClick={() => setPaymentMethod('cod')}
+                  <div
+                    className={`p-4 border-2 rounded-lg cursor-pointer transition-colors ${
+                      paymentMethod === "cod"
+                        ? "border-primary-600 bg-primary-50"
+                        : "border-gray-300 hover:border-gray-400"
+                    }`}
+                    onClick={() => setPaymentMethod("cod")}
                   >
                     <div className="flex items-center">
                       <input
                         type="radio"
                         name="payment"
                         value="cod"
-                        checked={paymentMethod === 'cod'}
-                        onChange={() => setPaymentMethod('cod')}
+                        checked={paymentMethod === "cod"}
+                        onChange={() => setPaymentMethod("cod")}
                         className="w-4 h-4 text-primary-600"
                       />
                       <div className="ml-3">
@@ -604,22 +680,25 @@ export default function CheckoutPage() {
                           <Truck className="w-5 h-5 text-gray-600 mr-2" />
                           <span className="font-medium">Cash on Delivery</span>
                         </div>
-                        <p className="text-sm text-gray-600">Pay when your order is delivered</p>
+                        <p className="text-sm text-gray-600">
+                          Pay when your order is delivered
+                        </p>
                       </div>
                     </div>
                   </div>
                 </div>
                 {/* UPI Payment UI */}
-                {paymentMethod === 'upi' && (
+                {paymentMethod === "upi" && (
                   <div className="mt-6">
                     <UpiPay amount={finalTotal} />
                     <div className="mt-4 text-sm text-gray-700">
-                      After payment, please enter your UPI transaction ID below for order confirmation.
+                      After payment, please enter your UPI transaction ID below
+                      for order confirmation.
                     </div>
                     <input
                       type="text"
                       value={upiTxnId}
-                      onChange={e => setUpiTxnId(e.target.value)}
+                      onChange={(e) => setUpiTxnId(e.target.value)}
                       placeholder="Enter UPI Transaction ID"
                       className="mt-2 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500"
                     />
@@ -634,46 +713,53 @@ export default function CheckoutPage() {
                   </button>
                   <button
                     onClick={async () => {
-                      if (paymentMethod === 'upi') {
+                      if (paymentMethod === "upi") {
                         if (!upiTxnId.trim()) {
-                          toast.error('Please enter your UPI transaction ID after payment.')
-                          return
+                          toast.error(
+                            "Please enter your UPI transaction ID after payment."
+                          );
+                          return;
                         }
-                        setLoading(true)
+                        setLoading(true);
                         // Save order with UPI txn ID, mark as pending
                         try {
-                          const response = await fetch('/api/orders', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            credentials: 'include',
+                          const response = await fetch("/api/orders", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            credentials: "include",
                             body: JSON.stringify({
-                              items: items.map(item => ({
+                              items: items.map((item) => ({
                                 productId: item.productId,
                                 quantity: item.quantity,
-                                price: item.product.salePrice || item.product.price
+                                price:
+                                  item.product.salePrice || item.product.price,
                               })),
                               shippingAddress,
-                              paymentMethod: 'upi',
+                              paymentMethod: "upi",
                               paymentData: { upiTxnId },
-                              total: finalTotal
-                            })
-                          })
-                          const responseData = await response.json()
+                              total: finalTotal,
+                            }),
+                          });
+                          const responseData = await response.json();
                           if (response.ok) {
-                            await clearCart()
-                            setOrderComplete(true)
-                            setStep(3)
-                            toast.success('Order placed! We will verify your payment and confirm soon.')
+                            await clearCart();
+                            setOrderComplete(true);
+                            setStep(3);
+                            toast.success(
+                              "Order placed! We will verify your payment and confirm soon."
+                            );
                           } else {
-                            toast.error(responseData.message || 'Order failed')
+                            toast.error(responseData.message || "Order failed");
                           }
                         } catch (err) {
-                          toast.error('Failed to place order. Please try again.')
+                          toast.error(
+                            "Failed to place order. Please try again."
+                          );
                         } finally {
-                          setLoading(false)
+                          setLoading(false);
                         }
                       } else {
-                        handleCashOnDelivery()
+                        handleCashOnDelivery();
                       }
                     }}
                     disabled={loading}
@@ -695,9 +781,12 @@ export default function CheckoutPage() {
                 <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle className="w-8 h-8 text-green-600" />
                 </div>
-                <h2 className="text-2xl font-semibold text-gray-900 mb-2">Order Placed Successfully!</h2>
+                <h2 className="text-2xl font-semibold text-gray-900 mb-2">
+                  Order Placed Successfully!
+                </h2>
                 <p className="text-gray-600 mb-6">
-                  Thank you for your order. We&apos;ll send you a confirmation email shortly.
+                  Thank you for your order. We&apos;ll send you a confirmation
+                  email shortly.
                 </p>
                 <div className="flex space-x-4 justify-center">
                   <Link
@@ -720,16 +809,21 @@ export default function CheckoutPage() {
           {/* Order Summary */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-md p-6 sticky top-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Order Summary</h3>
-              
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                Order Summary
+              </h3>
+
               {/* Order Items */}
               <div className="space-y-3 mb-6 max-h-64 overflow-y-auto">
                 {items.map((item) => (
                   <div key={item.id} className="flex items-center space-x-3">
                     <div className="w-12 h-12 bg-gray-100 rounded overflow-hidden">
                       <Image
-                        src={item.product?.images?.[0] || '/placeholder-product.jpg'}
-                        alt={item.product?.name || 'Product'}
+                        src={
+                          item.product?.images?.[0] ||
+                          "/placeholder-product.jpg"
+                        }
+                        alt={item.product?.name || "Product"}
                         width={48}
                         height={48}
                         className="w-full h-full object-cover"
@@ -740,16 +834,25 @@ export default function CheckoutPage() {
                         {item.product?.name}
                       </h4>
                       <p className="text-xs text-gray-600">
-                        Qty: {item.quantity} × ₹{((item.product?.salePrice || item.product?.price || 0)).toLocaleString()}
+                        Qty: {item.quantity} × ₹
+                        {(
+                          item.product?.salePrice ||
+                          item.product?.price ||
+                          0
+                        ).toLocaleString()}
                       </p>
                     </div>
                     <span className="text-sm font-medium text-gray-900">
-                      ₹{((item.product?.salePrice || item.product?.price || 0) * item.quantity).toLocaleString()}
+                      ₹
+                      {(
+                        (item.product?.salePrice || item.product?.price || 0) *
+                        item.quantity
+                      ).toLocaleString()}
                     </span>
                   </div>
                 ))}
               </div>
-              
+
               <div className="space-y-2 mb-4 pt-4 border-t border-gray-200">
                 <div className="flex justify-between text-gray-600">
                   <span>Subtotal ({cartCount} items)</span>
@@ -783,7 +886,7 @@ export default function CheckoutPage() {
                 </div>
                 <div className="flex items-center">
                   <Truck className="w-4 h-4 text-blue-600 mr-2" />
-                  <span>Free shipping on orders over ₹5,000</span>
+                  <span>Free shipping on orders over ₹499</span>
                 </div>
               </div>
             </div>
@@ -793,5 +896,5 @@ export default function CheckoutPage() {
 
       <Footer />
     </div>
-  )
+  );
 }

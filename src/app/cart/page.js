@@ -64,8 +64,8 @@ export default function CartPage() {
 
   const cartTotal = getCartTotal()
   const cartCount = getCartCount()
-  const shippingCost = cartTotal > 5000 ? 0 : 200
-  const finalTotal = cartTotal + shippingCost
+  const shippingCost = cartTotal >= 5000 ? 0 : 20;
+  const finalTotal = cartTotal + shippingCost;
 
   if (loading) {
     return (
@@ -78,13 +78,13 @@ export default function CartPage() {
         </div>
         <Footer />
       </div>
-    )
+    );
   }
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
-      
+
       <div className="container mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="flex items-center justify-between mb-8">
@@ -102,11 +102,11 @@ export default function CartPage() {
                 Shopping Cart
               </h1>
               <p className="text-gray-600">
-                {cartCount} {cartCount === 1 ? 'item' : 'items'} in your cart
+                {cartCount} {cartCount === 1 ? "item" : "items"} in your cart
               </p>
             </div>
           </div>
-          
+
           {items.length > 0 && (
             <button
               onClick={handleClearCart}
@@ -128,7 +128,7 @@ export default function CartPage() {
               Your cart is empty
             </h2>
             <p className="text-gray-600 mb-8 max-w-md mx-auto">
-              Looks like you haven&apos;t added any items to your cart yet. 
+              Looks like you haven&apos;t added any items to your cart yet.
               Start shopping to fill it up!
             </p>
             <Link
@@ -145,15 +145,21 @@ export default function CartPage() {
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-4">
               {items.map((item) => (
-                <div key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                <div
+                  key={item.id}
+                  className="bg-white rounded-lg shadow-md overflow-hidden"
+                >
                   <div className="p-6">
                     <div className="flex items-start space-x-4">
                       {/* Product Image */}
                       <div className="flex-shrink-0">
                         <div className="w-24 h-24 bg-gray-100 rounded-lg overflow-hidden">
                           <Image
-                            src={item.product?.images?.[0] || '/placeholder-product.jpg'}
-                            alt={item.product?.name || 'Product'}
+                            src={
+                              item.product?.images?.[0] ||
+                              "/placeholder-product.jpg"
+                            }
+                            alt={item.product?.name || "Product"}
                             width={96}
                             height={96}
                             className="w-full h-full object-cover"
@@ -166,7 +172,7 @@ export default function CartPage() {
                         <div className="flex justify-between items-start">
                           <div>
                             <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                              <Link 
+                              <Link
                                 href={`/products/${item.product?.slug}`}
                                 className="hover:text-primary-600 transition-colors"
                               >
@@ -180,7 +186,7 @@ export default function CartPage() {
                               SKU: {item.product?.sku}
                             </p>
                           </div>
-                          
+
                           <div className="text-right">
                             <div className="flex items-center space-x-2 mb-2">
                               {item.product?.salePrice ? (
@@ -199,7 +205,12 @@ export default function CartPage() {
                               )}
                             </div>
                             <p className="text-sm text-gray-600">
-                              Total: ₹{((item.product?.salePrice || item.product?.price || 0) * item.quantity).toLocaleString()}
+                              Total: ₹
+                              {(
+                                (item.product?.salePrice ||
+                                  item.product?.price ||
+                                  0) * item.quantity
+                              ).toLocaleString()}
                             </p>
                           </div>
                         </div>
@@ -207,21 +218,42 @@ export default function CartPage() {
                         {/* Quantity Controls */}
                         <div className="flex items-center justify-between mt-4">
                           <div className="flex items-center space-x-3">
-                            <span className="text-sm font-medium text-gray-700">Quantity:</span>
+                            <span className="text-sm font-medium text-gray-700">
+                              Quantity:
+                            </span>
                             <div className="flex items-center border border-gray-300 rounded-lg">
                               <button
-                                onClick={() => handleQuantityChange(item.productId, item.quantity - 1)}
-                                disabled={item.quantity <= 1 || isUpdating[item.productId]}
+                                onClick={() =>
+                                  handleQuantityChange(
+                                    item.productId,
+                                    item.quantity - 1
+                                  )
+                                }
+                                disabled={
+                                  item.quantity <= 1 ||
+                                  isUpdating[item.productId]
+                                }
                                 className="p-2 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                               >
                                 <Minus className="w-4 h-4" />
                               </button>
                               <span className="px-4 py-2 text-center min-w-[60px] font-medium">
-                                {isUpdating[item.productId] ? '...' : item.quantity}
+                                {isUpdating[item.productId]
+                                  ? "..."
+                                  : item.quantity}
                               </span>
                               <button
-                                onClick={() => handleQuantityChange(item.productId, item.quantity + 1)}
-                                disabled={item.quantity >= (item.product?.stockQuantity || 0) || isUpdating[item.productId]}
+                                onClick={() =>
+                                  handleQuantityChange(
+                                    item.productId,
+                                    item.quantity + 1
+                                  )
+                                }
+                                disabled={
+                                  item.quantity >=
+                                    (item.product?.stockQuantity || 0) ||
+                                  isUpdating[item.productId]
+                                }
                                 className="p-2 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                               >
                                 <Plus className="w-4 h-4" />
@@ -234,7 +266,12 @@ export default function CartPage() {
                               <Heart className="w-4 h-4" />
                             </button>
                             <button
-                              onClick={() => handleRemoveItem(item.productId, item.product?.name)}
+                              onClick={() =>
+                                handleRemoveItem(
+                                  item.productId,
+                                  item.product?.name
+                                )
+                              }
                               className="p-2 text-gray-600 hover:text-red-600 rounded-lg hover:bg-gray-50 transition-colors"
                             >
                               <Trash2 className="w-4 h-4" />
@@ -243,14 +280,16 @@ export default function CartPage() {
                         </div>
 
                         {/* Stock Warning */}
-                        {item.product?.stockQuantity && item.quantity > item.product.stockQuantity && (
-                          <div className="flex items-center space-x-2 mt-3 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-                            <AlertCircle className="w-4 h-4 text-yellow-600" />
-                            <span className="text-sm text-yellow-800">
-                              Only {item.product.stockQuantity} items available
-                            </span>
-                          </div>
-                        )}
+                        {item.product?.stockQuantity &&
+                          item.quantity > item.product.stockQuantity && (
+                            <div className="flex items-center space-x-2 mt-3 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                              <AlertCircle className="w-4 h-4 text-yellow-600" />
+                              <span className="text-sm text-yellow-800">
+                                Only {item.product.stockQuantity} items
+                                available
+                              </span>
+                            </div>
+                          )}
                       </div>
                     </div>
                   </div>
@@ -261,8 +300,10 @@ export default function CartPage() {
             {/* Order Summary */}
             <div className="lg:col-span-1">
               <div className="bg-white rounded-lg shadow-md p-6 sticky top-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Order Summary</h3>
-                
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                  Order Summary
+                </h3>
+
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between text-gray-600">
                     <span>Subtotal ({cartCount} items)</span>
@@ -278,6 +319,10 @@ export default function CartPage() {
                       )}
                     </span>
                   </div>
+                  <div className="flex items-center text-xs text-gray-500">
+                    <Truck className="w-4 h-4 mr-1 text-primary-600" />
+                    Free shipping on orders over ₹499.
+                  </div>
                   <div className="border-t border-gray-200 pt-3">
                     <div className="flex justify-between text-lg font-bold text-gray-900">
                       <span>Total</span>
@@ -292,7 +337,8 @@ export default function CartPage() {
                     <div className="flex items-center space-x-2">
                       <Truck className="w-4 h-4 text-blue-600" />
                       <span className="text-sm text-blue-800">
-                        Add ₹{(5000 - cartTotal).toLocaleString()} more for FREE shipping
+                        Add ₹{(5000 - cartTotal).toLocaleString()} more for FREE
+                        shipping
                       </span>
                     </div>
                   </div>
@@ -303,10 +349,10 @@ export default function CartPage() {
                   className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors mb-4"
                   onClick={() => {
                     if (!isAuthenticated) {
-                      toast.error('Please login to continue')
-                      router.push('/login')
+                      toast.error("Please login to continue");
+                      router.push("/login");
                     } else {
-                      router.push('/checkout')
+                      router.push("/checkout");
                     }
                   }}
                 >
@@ -321,7 +367,7 @@ export default function CartPage() {
                   </div>
                   <div className="flex items-center space-x-2">
                     <Truck className="w-4 h-4 text-blue-600" />
-                    <span>Free shipping on orders over ₹5,000</span>
+                    <span>Free shipping on orders over ₹499</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <Tag className="w-4 h-4 text-purple-600" />
@@ -336,5 +382,5 @@ export default function CartPage() {
 
       <Footer />
     </div>
-  )
+  );
 }

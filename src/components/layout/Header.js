@@ -20,7 +20,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const { user, isAuthenticated, logout } = useAuth()
-  const { getCartCount } = useCart()
+  const { getCartCount, getCartTotal } = useCart()
   const { getFavoritesCount } = useFavorites()
 
   const categories = [
@@ -32,12 +32,23 @@ const Header = () => {
     { name: 'Bracelets', slug: 'bracelets' },
   ]
 
+  const cartTotal = getCartTotal()
+  const freeShippingThreshold = 499
+  const showFreeShippingNotice = cartTotal > 0 && cartTotal < freeShippingThreshold
+  const amountNeeded = (freeShippingThreshold - cartTotal).toFixed(2)
+
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
       {/* Top Bar */}
       <div className="bg-primary-600 text-white text-sm py-2">
         <div className="container mx-auto px-4 text-center">
-          <p>Free shipping on orders over ₹999 | Call us: +91 80897 15616</p>
+          {showFreeShippingNotice ? (
+            <p>
+              Add ₹{amountNeeded} more for FREE shipping | Call us: +91 80897 15616
+            </p>
+          ) : (
+            <p>Free shipping on orders over ₹499 | Call us: +91 80897 15616</p>
+          )}
         </div>
       </div>
 
