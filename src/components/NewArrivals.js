@@ -1,16 +1,15 @@
 "use client"
 
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
 
-function FeaturedProducts({ products = [] }) {
+function NewArrivals({ products = [] }) {
   return (
     <section className="py-6 px-4 bg-gray-50">
       <div className="container mx-auto">
         {/* Header */}
         <div className="mb-4 text-center">
           <h2 className="text-4xl font-serif font-bold text-gray-800 mb-2">
-            Featured Products
+            New Arrivals
           </h2>
         </div>
 
@@ -59,7 +58,7 @@ function FeaturedProducts({ products = [] }) {
             </div>
             <div className="flex justify-end mt-2">
               <Link
-                href="/products"
+                href="/products?sort=new"
                 className="text-primary-600 font-medium hover:underline text-base"
               >
                 Explore all
@@ -76,4 +75,4 @@ function FeaturedProducts({ products = [] }) {
   );
 }
 
-export default FeaturedProducts
+export default NewArrivals

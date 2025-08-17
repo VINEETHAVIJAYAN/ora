@@ -65,7 +65,7 @@ const FeaturedCategories = ({ categories = [] }) => {
         </div>
 
         {/* Explore all link at right bottom */}
-        <div className="flex justify-end mt-8">
+        <div className="flex justify-end mt-2">
           <Link
             href="/categories"
             className="text-primary-600 font-medium hover:underline text-base"

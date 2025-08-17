@@ -64,7 +64,8 @@ export default function CartPage() {
 
   const cartTotal = getCartTotal()
   const cartCount = getCartCount()
-  const shippingCost = cartTotal >= 5000 ? 0 : 20;
+  const freeShippingThreshold = 499
+  const shippingCost = cartTotal >= freeShippingThreshold ? 0 : 20;
   const finalTotal = cartTotal + shippingCost;
 
   if (loading) {
@@ -337,7 +338,7 @@ export default function CartPage() {
                     <div className="flex items-center space-x-2">
                       <Truck className="w-4 h-4 text-blue-600" />
                       <span className="text-sm text-blue-800">
-                        Add ₹{(5000 - cartTotal).toLocaleString()} more for FREE
+                        Add ₹{(freeShippingThreshold - cartTotal).toFixed(2)} more for FREE
                         shipping
                       </span>
                     </div>

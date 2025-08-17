@@ -1,6 +1,7 @@
 import HeroClient from "@/components/HeroClient";
 import FeaturedCategories from "@/components/FeaturedCategories";
 import FeaturedProducts from "@/components/FeaturedProducts";
+import NewArrivals from "@/components/NewArrivals";
 import Newsletter from "@/components/Newsletter";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -93,6 +94,24 @@ async function getHomePageData() {
       take: 8,
     });
 
+    // Fetch latest products for New Arrivals
+    const latestProducts = await prisma.product.findMany({
+      where: {
+        isActive: true,
+      },
+      include: {
+        category: {
+          select: {
+            id: true,
+            name: true,
+            slug: true,
+          },
+        },
+      },
+      orderBy: { createdAt: "desc" },
+      take: 8,
+    });
+
     return {
       heroSlides: heroSlides.map((slide) => ({
         id: slide.id,
@@ -105,6 +124,7 @@ async function getHomePageData() {
       })),
       categories,
       featuredProducts,
+      latestProducts,
     };
   } catch (error) {
     console.error("Error fetching homepage data:", error);
@@ -117,7 +137,7 @@ async function getHomePageData() {
 }
 
 export default async function Home() {
-  const { heroSlides, categories, featuredProducts } = await getHomePageData();
+  const { heroSlides, categories, featuredProducts, latestProducts } = await getHomePageData();
 
   return (
     <div className="min-h-screen font-figtree">
@@ -126,6 +146,7 @@ export default async function Home() {
         <HeroClient initialSlides={heroSlides} />
         <FeaturedCategories categories={categories} />
         <FeaturedProducts products={featuredProducts} />
+        <NewArrivals products={latestProducts} />
         {/* <Newsletter /> */}
       </main>
       <Footer />

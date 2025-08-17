@@ -213,13 +213,13 @@ const Hero = ({ initialSlides = [] }) => {
       </div>
 
       {/* Floating Elements */}
-      <div className="absolute top-20 right-10 hidden lg:block">
+      {/* <div className="absolute top-20 right-10 hidden lg:block">
         <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-white text-center">
           <p className="text-2xl font-bold text-primary-400">25%</p>
           <p className="text-sm">OFF</p>
           <p className="text-xs">First Order</p>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
