@@ -118,7 +118,7 @@ export default function CheckoutPage() {
 
   const cartTotal = getCartTotal()
   const cartCount = getCartCount()
-  const shippingCost = cartTotal > 499 ? 0 : 200
+  const shippingCost = cartTotal > 499 ? 0 : 20
   const finalTotal = cartTotal + shippingCost
   
   console.log('Checkout totals - Cart:', cartTotal, 'Shipping:', shippingCost, 'Final:', finalTotal)

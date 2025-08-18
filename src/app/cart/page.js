@@ -65,7 +65,7 @@ export default function CartPage() {
   const cartTotal = getCartTotal()
   const cartCount = getCartCount()
   const freeShippingThreshold = 499
-  const shippingCost = cartTotal >= freeShippingThreshold ? 0 : 20;
+  const shippingCost = cartTotal > freeShippingThreshold ? 0 : 20;
   const finalTotal = cartTotal + shippingCost;
 
   if (loading) {

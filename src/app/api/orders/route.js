@@ -84,9 +84,9 @@ export async function POST(request) {
     console.log('Items processed. Calculated subtotal:', calculatedTotal)
 
     // Add shipping and tax
-    const shippingCost = calculatedTotal > 5000 ? 0 : 200
-    const tax = Math.round(calculatedTotal * 0.18) // 18% GST
-    const finalTotal = calculatedTotal + shippingCost + tax
+    const shippingCost = calculatedTotal > 499 ? 0 : 20
+    const tax = 0 // No tax
+    const finalTotal = calculatedTotal + shippingCost
     
     console.log('Final calculations - Shipping:', shippingCost, 'Tax:', tax, 'Final Total:', finalTotal, 'Received Total:', total)
 
