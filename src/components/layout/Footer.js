@@ -26,7 +26,7 @@ const Footer = () => {
         const res = await fetch("/api/categories");
         const data = await res.json();
         // Defensive: ensure categories is always an array
-        setCategories(Array.isArray(data) ? data : []);
+        setCategories(Array.isArray(data.categories) ? data.categories : []);
       } catch (error) {
         setCategories([]);
       }
@@ -145,8 +145,7 @@ const Footer = () => {
                   className="text-primary-400 mt-1 flex-shrink-0"
                 />
                 <div className="text-gray-400">
-                  <p>4A Asset GrandDios,</p>
-                  <p>Kadappakkad</p>
+                  <p>Kadappakkada</p>
                   <p>Kollam, kerala 691008</p>
                 </div>
               </li>

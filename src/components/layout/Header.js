@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useAuth } from '@/contexts/AuthContext'
@@ -17,20 +18,21 @@ import {
 } from 'lucide-react'
 
 const Header = () => {
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  // Removed search bar state
   const { user, isAuthenticated, logout } = useAuth()
   const { getCartCount, getCartTotal } = useCart()
   const { getFavoritesCount } = useFavorites()
 
-  const categories = [
-    { name: 'Chains', slug: 'chains' },
-    { name: 'Earrings', slug: 'earrings' },
-    { name: 'Bangles', slug: 'bangles' },
-    { name: 'Rings', slug: 'rings' },
-    { name: 'Necklaces', slug: 'necklaces' },
-    { name: 'Bracelets', slug: 'bracelets' },
-  ]
+  const [categories, setCategories] = useState([])
+
+  useEffect(() => {
+    fetch('/api/categories')
+      .then(res => res.json())
+      .then(data => setCategories(data.categories || []))
+      .catch(() => setCategories([]))
+  }, [])
 
   const cartTotal = getCartTotal()
   const freeShippingThreshold = 499
@@ -94,7 +96,7 @@ const Header = () => {
               <div className="absolute top-full left-0 bg-white shadow-lg rounded-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[200px]">
                 {categories.map((category) => (
                   <Link
-                    key={category.slug}
+                    key={category.id}
                     href={`/categories/${category.slug}`}
                     className="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition-colors"
                   >
@@ -121,12 +123,7 @@ const Header = () => {
           {/* Actions */}
           <div className="flex items-center space-x-4">
             {/* Search */}
-            <button
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className="p-2 text-gray-600 hover:text-primary-600 transition-colors"
-            >
-              <Search size={20} />
-            </button>
+        {/* Search removed as per user request */}
 
             {/* User Menu */}
             <div className="relative group">
@@ -211,21 +208,7 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Search Bar */}
-      {isSearchOpen && (
-        <div className="border-t bg-white py-4">
-          <div className="container mx-auto px-4">
-            <div className="max-w-2xl mx-auto">
-              <input
-                type="text"
-                placeholder="Search for jewelry..."
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent"
-                autoFocus
-              />
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Search Bar removed as per user request */}
 
       {/* Mobile Menu */}
       {isMenuOpen && (

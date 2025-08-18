@@ -69,6 +69,12 @@ async function updateProduct(request, { params }) {
     if (updateData.stockQuantity !== undefined) updateData.stockQuantity = parseInt(updateData.stockQuantity)
     if (updateData.weight) updateData.weight = parseFloat(updateData.weight)
 
+    // Remove fields not allowed in update
+    delete updateData.id
+    delete updateData.createdAt
+    delete updateData.updatedAt
+    delete updateData.category
+
     const product = await prisma.product.update({
       where: { id },
       data: updateData,

@@ -22,6 +22,8 @@ import {
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import toast from 'react-hot-toast'
+import Cropper from 'react-easy-crop'
+import { canvasToBlob } from 'canvas-to-blob'
 
 export default function AddProduct() {
   const { isAuthenticated, isAdmin } = useAuth()
@@ -48,6 +50,13 @@ export default function AddProduct() {
     metaDescription: ''
   })
   const [newTag, setNewTag] = useState('')
+  const [cropModalOpen, setCropModalOpen] = useState(false)
+  const [selectedImage, setSelectedImage] = useState(null)
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null)
+  const [croppingImageUrl, setCroppingImageUrl] = useState('')
+  const [croppingFile, setCroppingFile] = useState(null)
+  const [crop, setCrop] = useState({ x: 0, y: 0 })
+  const [zoom, setZoom] = useState(1)
 
   useEffect(() => {
     if (!isAuthenticated || !isAdmin) {
@@ -95,29 +104,76 @@ export default function AddProduct() {
 
   const handleImageUpload = async (e) => {
     const files = Array.from(e.target.files)
-    const uploadedUrls = [];
-
-    for (const file of files) {
-      const data = new FormData();
-      data.append('file', file);
-      data.append('upload_preset', 'ora-ecommerce'); // You can change this to your actual preset
-
-      const res = await fetch('https://api.cloudinary.com/v1_1/djpertvld/image/upload', {
-        method: 'POST',
-        body: data,
-      });
-      const result = await res.json();
-      if (result.secure_url) {
-        uploadedUrls.push(result.secure_url);
-      } else {
-        toast.error('Image upload failed');
-      }
+    if (files.length > 0) {
+      const file = files[0]
+      setCroppingFile(file)
+      setCroppingImageUrl(URL.createObjectURL(file))
+      setCropModalOpen(true)
     }
+  }
 
-    setFormData(prev => ({
-      ...prev,
-      images: [...prev.images, ...uploadedUrls]
-    }));
+  const onCropChange = (newCrop) => {
+    setCrop(newCrop)
+  }
+
+  const onZoomChange = (newZoom) => {
+    setZoom(newZoom)
+  }
+
+  const onCropComplete = (croppedArea, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels)
+  }
+
+  const getCroppedImg = async () => {
+    return new Promise((resolve, reject) => {
+      const image = new window.Image()
+      image.src = croppingImageUrl
+      image.onload = () => {
+        const canvas = document.createElement('canvas')
+        canvas.width = croppedAreaPixels.width
+        canvas.height = croppedAreaPixels.height
+        const ctx = canvas.getContext('2d')
+        ctx.drawImage(
+          image,
+          croppedAreaPixels.x,
+          croppedAreaPixels.y,
+          croppedAreaPixels.width,
+          croppedAreaPixels.height,
+          0,
+          0,
+          croppedAreaPixels.width,
+          croppedAreaPixels.height
+        )
+        canvas.toBlob((blob) => {
+          resolve(blob)
+        }, 'image/jpeg')
+      }
+      image.onerror = reject
+    })
+  }
+
+  const handleCropSave = async () => {
+    const croppedBlob = await getCroppedImg()
+    const data = new FormData()
+    data.append('file', croppedBlob, croppingFile.name)
+    data.append('upload_preset', 'ora-ecommerce')
+    const res = await fetch('https://api.cloudinary.com/v1_1/djpertvld/image/upload', {
+      method: 'POST',
+      body: data,
+    })
+    const result = await res.json()
+    if (result.secure_url) {
+      setFormData(prev => ({
+        ...prev,
+        images: [...prev.images, result.secure_url]
+      }))
+      toast.success('Image uploaded and cropped!')
+    } else {
+      toast.error('Image upload failed')
+    }
+    setCropModalOpen(false)
+    setCroppingImageUrl('')
+    setCroppingFile(null)
   }
 
   const removeImage = (index) => {
@@ -626,6 +682,38 @@ export default function AddProduct() {
             </div>
           </div>
         </form>
+
+        {/* Crop Image Modal */}
+        {cropModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
+              <h2 className="text-lg font-semibold mb-4">Crop Image</h2>
+              <div className="relative w-full h-64 bg-gray-100">
+                <Cropper
+                  image={croppingImageUrl}
+                  crop={crop}
+                  zoom={zoom}
+                  aspect={1}
+                  onCropChange={onCropChange}
+                  onCropComplete={onCropComplete}
+                  onZoomChange={onZoomChange}
+                />
+              </div>
+              <div className="flex justify-end mt-4 gap-2">
+                <button
+                  type="button"
+                  className="px-4 py-2 bg-gray-200 rounded"
+                  onClick={() => setCropModalOpen(false)}
+                >Cancel</button>
+                <button
+                  type="button"
+                  className="px-4 py-2 bg-primary-600 text-white rounded"
+                  onClick={handleCropSave}
+                >Save Crop</button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       <Footer />

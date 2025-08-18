@@ -31,6 +31,11 @@ function FeaturedProducts({ products = [] }) {
                       className="object-cover w-full h-full"
                       loading="lazy"
                     />
+                    {product.stockQuantity === 0 && (
+                      <span className="absolute top-2 left-2 bg-red-600 text-white text-xs font-semibold px-3 py-1 rounded-full z-10">
+                        Out of stock
+                      </span>
+                    )}
                   </div>
                   <h3 className="font-semibold text-lg text-gray-800 mb-1 line-clamp-1">
                     {product.name}

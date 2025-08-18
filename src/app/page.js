@@ -6,6 +6,7 @@ import Newsletter from "@/components/Newsletter";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { prisma } from "@/lib/prisma";
+import ProductSearchBar from "@/components/ProductSearchBar";
 
 // Enable ISR (Incremental Static Regeneration) - revalidate every hour
 export const revalidate = 3600;
@@ -137,7 +138,8 @@ async function getHomePageData() {
 }
 
 export default async function Home() {
-  const { heroSlides, categories, featuredProducts, latestProducts } = await getHomePageData();
+  const { heroSlides, categories, featuredProducts, latestProducts } =
+    await getHomePageData();
 
   return (
     <div className="min-h-screen font-figtree">
