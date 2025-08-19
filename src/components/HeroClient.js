@@ -149,16 +149,16 @@ const Hero = ({ initialSlides = [] }) => {
                       {slide.ctaText}
                     </Link>
 
-                    <Link
+                    {/* <Link
                       href="/about"
                       className="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-gray-900 font-semibold rounded-lg transition-colors"
                     >
                       Learn More
-                    </Link>
+                    </Link> */}
                   </div>
 
                   {/* Trust Indicators */}
-                  <div className="flex items-center space-x-6 mt-8">
+                  {/* <div className="flex items-center space-x-6 mt-8">
                     <div className="flex items-center space-x-2">
                       <div className="flex">
                         {[...Array(5)].map((_, i) => (
@@ -176,7 +176,7 @@ const Hero = ({ initialSlides = [] }) => {
                     <div className="text-sm text-gray-300">
                       10,000+ Happy Customers
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

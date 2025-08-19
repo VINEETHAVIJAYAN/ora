@@ -49,7 +49,7 @@ const Footer = () => {
             <div className="flex items-center space-x-3 mb-6">
               <div className="relative w-10 h-10">
                 <Image
-                  src="/logo.jpeg"
+                  src="/logo.png"
                   alt="ORA Fashions"
                   fill
                   className="object-contain"
@@ -168,7 +168,7 @@ const Footer = () => {
       </div>
 
       {/* Newsletter Section */}
-      <div className="border-t border-gray-800">
+      {/* <div className="border-t border-gray-800">
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-2xl mx-auto text-center">
             <h3 className="font-semibold text-lg mb-2">Stay Updated</h3>
@@ -187,7 +187,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Bottom Footer */}
       <div className="border-t border-gray-800">

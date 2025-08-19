@@ -14,7 +14,19 @@ export default function ProductDetailsClient({ product }) {
     <div>
       <h1 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-4">{product.name}</h1>
       <p className="text-lg text-gray-700 mb-4">{product.description}</p>
-      <p className="text-2xl font-bold text-primary-600 mb-6">₹{product.price}</p>
+      {product.salePrice !== undefined && product.salePrice !== null ? (
+        <div className="flex items-center gap-3 mb-6">
+          <span className="text-2xl font-bold text-primary-600">₹{product.salePrice}</span>
+          <span className="text-xl text-gray-500 line-through">₹{product.price}</span>
+          {product.price > product.salePrice && (
+            <span className="bg-green-100 text-green-800 px-2 py-1 rounded text-sm font-medium">
+              You saved ₹{product.price - product.salePrice}
+            </span>
+          )}
+        </div>
+      ) : (
+        <p className="text-2xl font-bold text-primary-600 mb-6">₹{product.price}</p>
+      )}
       <div className="mb-6">
         <span className="inline-block bg-primary-100 text-primary-700 px-4 py-2 rounded-full font-medium">
           {product.category?.name}

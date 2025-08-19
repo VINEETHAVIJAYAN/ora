@@ -64,7 +64,7 @@ export async function generateMetadata() {
       url: "/products",
       images: [
         {
-          url: "/logo.jpeg",
+          url: "/logo.png",
           width: 1200,
           height: 630,
           alt: "ORA Fashions Jewelry Collection",

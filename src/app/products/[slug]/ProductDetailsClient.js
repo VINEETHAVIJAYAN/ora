@@ -134,23 +134,20 @@ export default function ProductDetailsClient({ product }) {
 
               {/* Price */}
               <div className="flex items-center space-x-3 mb-4">
-                {product.salePrice ? (
+                <span className="text-3xl font-bold text-primary-600">
+                  ₹{(product.salePrice !== undefined && product.salePrice !== null ? product.salePrice : product.price).toLocaleString()}
+                </span>
+                {product.salePrice !== undefined && product.salePrice !== null && (
                   <>
-                    <span className="text-3xl font-bold text-primary-600">
-                      ₹{product.salePrice.toLocaleString()}
-                    </span>
                     <span className="text-xl text-gray-500 line-through">
                       ₹{product.price.toLocaleString()}
                     </span>
-                    <span className="bg-green-100 text-green-800 px-2 py-1 rounded text-sm font-medium">
-                      Save ₹
-                      {(product.price - product.salePrice).toLocaleString()}
-                    </span>
+                    {product.price > product.salePrice && (
+                      <span className="bg-green-100 text-green-800 px-2 py-1 rounded text-sm font-medium">
+                        Save ₹{(product.price - product.salePrice).toLocaleString()}
+                      </span>
+                    )}
                   </>
-                ) : (
-                  <span className="text-3xl font-bold text-gray-900">
-                    ₹{product.price.toLocaleString()}
-                  </span>
                 )}
               </div>
 

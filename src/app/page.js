@@ -34,7 +34,7 @@ export async function generateMetadata() {
       siteName: "ORA Fashions",
       images: [
         {
-          url: "/logo.jpeg",
+          url: "/logo.png",
           width: 1200,
           height: 630,
           alt: "ORA Fashions - Premium Jewelry Collection",
@@ -48,7 +48,7 @@ export async function generateMetadata() {
       title: "ORA Fashions - Premium Jewelry Collection",
       description:
         "Discover exquisite handcrafted jewelry with traditional and contemporary designs",
-      images: ["/logo.jpeg"],
+      images: ["/logo.png"],
     },
     alternates: {
       canonical: "https://orafashionz.com",

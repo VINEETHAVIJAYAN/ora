@@ -31,26 +31,31 @@ export async function generateMetadata() {
   const categoryNames = categories.map(cat => cat.name).join(', ')
 
   return {
-    title: 'Jewelry Categories - Traditional & Contemporary Collections | ORA Fashions',
-    description: `Explore our complete jewelry categories including ${categoryNames.slice(0, 100)}... Shop traditional and contemporary jewelry at ORA Fashions.`,
+    title:
+      "Jewelry Categories - Traditional & Contemporary Collections | ORA Fashions",
+    description: `Explore our complete jewelry categories including ${categoryNames.slice(
+      0,
+      100
+    )}... Shop traditional and contemporary jewelry at ORA Fashions.`,
     keywords: `jewelry categories, ${categoryNames}, traditional jewelry, contemporary jewelry, handcrafted jewelry, ORA Fashions`,
     openGraph: {
-      title: 'Jewelry Categories - ORA Fashions',
-      description: 'Discover our beautiful jewelry categories - from traditional to contemporary designs',
-      url: '/categories',
+      title: "Jewelry Categories - ORA Fashions",
+      description:
+        "Discover our beautiful jewelry categories - from traditional to contemporary designs",
+      url: "/categories",
       images: [
         {
-          url: '/logo.jpeg',
+          url: "/logo.png",
           width: 1200,
           height: 630,
-          alt: 'ORA Fashions Jewelry Categories',
-        }
+          alt: "ORA Fashions Jewelry Categories",
+        },
       ],
     },
     alternates: {
-      canonical: '/categories',
+      canonical: "/categories",
     },
-  }
+  };
 }
 
 export default async function CategoriesPage() {

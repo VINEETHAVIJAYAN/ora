@@ -40,19 +40,8 @@ const Header = () => {
   const amountNeeded = (freeShippingThreshold - cartTotal).toFixed(2)
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
+    <header className="bg-gradient-to-r from-black via-gray-900 to-[#c48902] shadow-sm sticky top-0 z-50">
       {/* Top Bar */}
-      <div className="bg-primary-600 text-white text-sm py-2">
-        <div className="container mx-auto px-4 text-center">
-          {showFreeShippingNotice ? (
-            <p>
-              Add ₹{amountNeeded} more for FREE shipping | Call us: +91 80897 15616
-            </p>
-          ) : (
-            <p>Free shipping on orders over ₹499 | Call us: +91 80897 15616</p>
-          )}
-        </div>
-      </div>
 
       {/* Main Header */}
       <div className="container mx-auto px-4">
@@ -67,9 +56,9 @@ const Header = () => {
 
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <div className="relative w-12 h-12">
+            <div className="relative w-20 h-20">
               <Image
-                src="/logo.jpeg"
+                src="/logo.png"
                 alt="ORA Fashions"
                 fill
                 className="object-contain"
@@ -82,14 +71,14 @@ const Header = () => {
           <nav className="hidden md:flex items-center space-x-8">
             <Link
               href="/"
-              className="text-gray-700 hover:text-primary-600 transition-colors"
+              className="text-white hover:text-[#c48902] transition-colors"
             >
               Home
             </Link>
 
             {/* Categories Dropdown */}
             <div className="relative group">
-              <button className="flex items-center space-x-1 text-gray-700 hover:text-primary-600 transition-colors">
+              <button className="flex items-center space-x-1 text-white hover:text-[#c48902] transition-colors">
                 <span>Categories</span>
                 <ChevronDown size={16} />
               </button>
@@ -108,13 +97,13 @@ const Header = () => {
 
             <Link
               href="/about"
-              className="text-gray-700 hover:text-primary-600 transition-colors"
+              className="text-white hover:text-[#c48902] transition-colors"
             >
               About
             </Link>
             <Link
               href="/contact"
-              className="text-gray-700 hover:text-primary-600 transition-colors"
+              className="text-white hover:text-[#c48902] transition-colors"
             >
               Contact
             </Link>
@@ -123,11 +112,11 @@ const Header = () => {
           {/* Actions */}
           <div className="flex items-center space-x-4">
             {/* Search */}
-        {/* Search removed as per user request */}
+            {/* Search removed as per user request */}
 
             {/* User Menu */}
             <div className="relative group">
-              <button className="p-2 text-gray-600 hover:text-primary-600 transition-colors">
+              <button className="p-2 text-white hover:text-[#c48902] transition-colors">
                 <User size={20} />
               </button>
               <div className="absolute top-full right-0 bg-white shadow-lg rounded-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[180px]">
@@ -182,7 +171,7 @@ const Header = () => {
             {/* Favorites */}
             <Link
               href="/favorites"
-              className="relative p-2 text-gray-600 hover:text-primary-600 transition-colors"
+              className="relative p-2 text-white hover:text-[#c48902] transition-colors"
             >
               <Heart size={20} />
               {isAuthenticated && getFavoritesCount() > 0 && (
@@ -195,7 +184,7 @@ const Header = () => {
             {/* Cart */}
             <Link
               href="/cart"
-              className="relative p-2 text-gray-600 hover:text-primary-600 transition-colors"
+              className="relative p-2 text-white hover:text-[#c48902] transition-colors"
             >
               <ShoppingBag size={20} />
               {getCartCount() > 0 && (
