@@ -20,8 +20,8 @@ import {
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import toast from 'react-hot-toast'
-import Cropper from 'react-easy-crop'
-import { canvasToBlob } from 'canvas-to-blob'
+import dynamic from 'next/dynamic'
+const Cropper = dynamic(() => import('react-easy-crop'), { ssr: false })
 
 export default function AddCategory() {
   const { isAuthenticated, isAdmin } = useAuth()
@@ -84,6 +84,7 @@ export default function AddCategory() {
   const onCropComplete = (croppedArea, croppedAreaPixels) => setCroppedAreaPixels(croppedAreaPixels)
 
   const getCroppedImg = async () => {
+    if (typeof window === 'undefined') return null;
     return new Promise((resolve, reject) => {
       const image = new window.Image();
       image.src = croppingImageUrl;
@@ -437,7 +438,7 @@ export default function AddCategory() {
         </form>
 
         {/* Crop Image Modal */}
-        {cropModalOpen && (
+        {typeof window !== 'undefined' && cropModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
               <h2 className="text-lg font-semibold mb-4">Crop Image</h2>
