@@ -7,6 +7,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { prisma } from "@/lib/prisma";
 import ProductSearchBar from "@/components/ProductSearchBar";
+import FlashSaleBanner from "@/components/FlashSaleBanner";
 
 // Enable ISR (Incremental Static Regeneration) - revalidate every hour
 export const revalidate = 3600;
@@ -145,6 +146,7 @@ export default async function Home() {
     <div className="min-h-screen font-figtree">
       <Header className="font-roboto" />
       <main>
+        <FlashSaleBanner />
         <HeroClient initialSlides={heroSlides} />
         <FeaturedCategories categories={categories} />
         <FeaturedProducts products={featuredProducts} />
