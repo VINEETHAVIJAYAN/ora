@@ -51,7 +51,11 @@ const Header = () => {
             className="md:hidden p-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {isMenuOpen ? (
+              <X size={28} color="#c48902" strokeWidth={2.5} />
+            ) : (
+              <Menu size={28} color="#c48902" strokeWidth={2.5} />
+            )}
           </button>
 
           {/* Logo */}

@@ -68,6 +68,7 @@ model Product {
   metaTitle   String?
   metaDescription String?
   tags        String[]
+  type        ProductType?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   
@@ -272,4 +273,9 @@ enum PointType {
   EARNED
   REDEEMED
   EXPIRED
+}
+enum ProductType {
+  CHAIN
+  EARINGS
+  BANGLES
 }

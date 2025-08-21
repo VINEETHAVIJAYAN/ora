@@ -14,6 +14,7 @@ import {
   Truck,
   Shield,
   RotateCcw,
+  Youtube,
 } from "lucide-react";
 
 const Footer = () => {
@@ -73,16 +74,16 @@ const Footer = () => {
                 <Facebook size={20} />
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/orafashionz/"
                 className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary-600 transition-colors"
               >
                 <Instagram size={20} />
               </a>
               <a
-                href="#"
+                href="https://www.youtube.com/@ORAFASHIONZ"
                 className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary-600 transition-colors"
               >
-                <Twitter size={20} />
+                <Youtube size={20} />
               </a>
             </div>
           </div>
